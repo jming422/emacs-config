@@ -70,6 +70,16 @@
 (load "~/.emacs.d/mysecrets.el" t)
 
 
+;; Clear keybindings used by other applications (*COUGH COUGH* amethyst *COUGH*)
+(global-unset-key (kbd "s-C"))
+(global-unset-key (kbd "s-D"))
+(global-unset-key (kbd "s-E"))
+(global-unset-key (kbd "s-H"))
+(global-unset-key (kbd "s-L"))
+(global-unset-key (kbd "s-M"))
+(global-unset-key (kbd "s-S"))
+
+
 ;; Here you go, Becker:
 (use-package evil
   :bind ("s-v" . evil-mode))
@@ -85,11 +95,14 @@
 ;;(desktop-save-mode t)
 
 ;; Asthetic alterations & theming
-(scroll-bar-mode 0)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
 (global-hl-line-mode t)
 (show-paren-mode t)
 (column-number-mode)
 (global-eldoc-mode)
+
 
 (add-to-list 'default-frame-alist
 	     '(font . "Fira Code-12"))
