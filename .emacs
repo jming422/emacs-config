@@ -563,6 +563,8 @@
   :bind (:map markdown-mode-map
 	 ("C-c M-j" . flymd-flyit)))
 
+;; Graphviz
+(use-package graphviz-dot-mode)
 
 ;; Go
 (use-package go-mode
