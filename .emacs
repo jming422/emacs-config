@@ -388,6 +388,12 @@
 (use-package lsp-java
   :after lsp-mode)
 
+(use-package lsp-sourcekit
+  :after lsp-mode
+  :config
+  (setq lsp-sourcekit-executable
+	(expand-file-name (concat (getenv "SOURCEKIT_TOOLCHAIN_PATH") "/usr/bin/sourcekit-lsp"))))
+
 (use-package lsp-ui
   :commands lsp-ui-mode
   :custom
@@ -627,12 +633,6 @@
 
 (use-package swift-helpful
   :after swift-mode)
-
-(use-package lsp-sourcekit
-  :after lsp-mode
-  :config
-  (setq lsp-sourcekit-executable
-	(expand-file-name (concat (getenv "SOURCEKIT_TOOLCHAIN_PATH") "/usr/bin/sourcekit-lsp"))))
 
 
 ;; Groovy / .gradle
