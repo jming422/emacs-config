@@ -392,7 +392,7 @@
   :after lsp-mode
   :config
   (setq lsp-sourcekit-executable
-	(expand-file-name (concat (getenv "SOURCEKIT_TOOLCHAIN_PATH") "/usr/bin/sourcekit-lsp"))))
+	(expand-file-name "/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin/sourcekit-lsp")))
 
 (use-package lsp-ui
   :commands lsp-ui-mode
