@@ -815,6 +815,24 @@ If provided, FILE2 will be opened in the right-side buffer."
 (add-hook 'ediff-keymap-setup-hook (lambda () (define-key ediff-mode-map "d" 'ediff-copy-both-to-C)))
 
 
+(defun prompt-for-file ()
+  "Prompt for a file and return its contents."
+  (with-temp-buffer
+    (insert-file-contents (read-file-name "Read env from file: "))
+    (buffer-string)))
+
+(defun arte-env-by-buffer (arg)
+  "Read the contents of the current buffer into `setenv'.
+If prefixed with one \\[universal-argument] as ARG, uses the current buffer instead of prompting."
+  (interactive "p")
+  (let ((the-text (if (eq arg 4)
+		      (buffer-string)
+		    (prompt-for-file))))
+    (dolist (line (split-string the-text "\n" t))
+      (-let (((k v) (split-string line "=" t)))
+	(setenv k v)))))
+
+
 (when (eq system-type 'darwin)
   ;; Mac modifier key rebindings
   (setq mac-command-modifier 'meta)
