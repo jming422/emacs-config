@@ -755,6 +755,16 @@ If provided, FILE2 will be opened in the right-side buffer."
   (other-window 2)
   (magit-status))
 
+
+(defun init-dap ()
+  "Initialize the window setup for DAP.  Expects the windows to be preconfigured as with `init-project'."
+  (interactive)
+  (dap-ui-repl)
+  (other-window 1)
+  (dap-ui-breakpoints)
+  (dap-ui-sessions)
+  (dap-ui-locals))
+
 (use-package ace-window
   :bind (("M-o" . ace-window)
 	 ("s-o" . ace-swap-window)))
@@ -778,11 +788,12 @@ If provided, FILE2 will be opened in the right-side buffer."
 	     ("p" . enlarge-window)
 	     ("f" . enlarge-window-horizontally)
 	     ("b" . shrink-window-horizontally)
+	     ("d" . init-dap)
 	     ("q" . quit)
 	     ("<return>" . quit))
   (hercules-def
    :toggle-funs #'my-window-prefix
-   :hide-funs '(cool-enlarge-window balance-windows quit)
+   :hide-funs '(cool-enlarge-window balance-windows init-dap quit)
    :keymap 'my-window-map
    :transient t)
   (global-set-key (kbd "H-w") #'my-window-prefix))
