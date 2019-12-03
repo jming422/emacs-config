@@ -755,7 +755,6 @@ If provided, FILE2 will be opened in the right-side buffer."
   (other-window 2)
   (magit-status))
 
-
 (defun init-dap ()
   "Initialize the window setup for DAP.  Expects the windows to be preconfigured as with `init-project'."
   (interactive)
