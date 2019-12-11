@@ -4,28 +4,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#454545" "#cd5542" "#6aaf50" "#baba36" "#5180b3" "#ab75c3" "#68a5e9" "#bdbdb3"])
  '(cursor-type (quote bar))
  '(custom-enabled-themes nil)
- '(custom-safe-themes
-   (quote
-    ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "482b8ccf0d6a9be837f3756aba38f7cfbc1a2896fe368bbfdda066afe2003a9f" "8c9b522d596f924e35172d9f39a324ac9fb4e359d1a9b73fec353691cec34163" "e62b66040cb90a4171aa7368aced4ab9d8663956a62a5590252b0bc19adde6bd" "34dc2267328600f3065630e161a8ae59939700684c232073cdd5afbf78456670" "030346c2470ddfdaca479610c56a9c2aa3e93d5de3a9696f335fd46417d8d3e4" "a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
- '(js-indent-level 2)
- '(json-reformat:indent-width 2)
- '(linum-format " %5i ")
  '(package-selected-packages
    (quote
-    (lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell flymd rainbow-delimiters evil expand-region fireplace ample-theme which-key ace-window projectile undo-tree avy multiple-cursors magit company super-save swiper ivy)))
- '(pos-tip-background-color "#073642")
- '(pos-tip-foreground-color "#93a1a1")
- '(term-default-bg-color "#002b36")
- '(term-default-fg-color "#839496")
- '(xterm-color-names
-   ["#073642" "#dc322f" "#859900" "#b58900" "#268bd2" "#d33682" "#2aa198" "#eee8d5"])
- '(xterm-color-names-bright
-   ["#002b36" "#cb4b16" "#586e75" "#657b83" "#839496" "#6c71c4" "#93a1a1" "#fdf6e3"]))
+    (lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell flymd rainbow-delimiters evil expand-region fireplace ample-theme which-key ace-window projectile undo-tree avy multiple-cursors magit company super-save swiper ivy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -676,6 +660,7 @@
   :commands add-node-modules-path)
 
 (use-package rjsx-mode
+  :custom (js-indent-level 2)
   :after prettier-js
   :mode "\\.jsx?\\'"
 ;;  :interpreter ("nodejs" "node")
@@ -686,6 +671,7 @@
   (add-node-modules-path))
 
 (use-package json-mode
+  :custom (json-reformat:indent-width 2)
   :after prettier-js
   :mode "\\.json\\'"
   :bind (:map json-mode-map
@@ -813,16 +799,15 @@ If provided, FILE2 will be opened in the right-side buffer."
 
 (add-hook 'ediff-keymap-setup-hook (lambda () (define-key ediff-mode-map "d" 'ediff-copy-both-to-C)))
 
-
 (defun prompt-for-file ()
   "Prompt for a file and return its contents."
   (with-temp-buffer
     (insert-file-contents (read-file-name "Read env from file: "))
     (buffer-string)))
 
-(defun arte-env-by-buffer (arg)
-  "Read the contents of the current buffer into `setenv'.
-If prefixed with one \\[universal-argument] as ARG, uses the current buffer instead of prompting."
+(defun setenv-from-file (arg)
+  "Read the contents of a .env file into `setenv'.
+If prefixed with one \\[universal-argument] as ARG, uses the current buffer instead of prompting for a file."
   (interactive "p")
   (let ((the-text (if (eq arg 4)
 		      (buffer-string)
