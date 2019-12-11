@@ -294,7 +294,7 @@
 	 ("C-M-u" . sp-backward-up-sexp)
 	 ("C-M-d" . sp-down-sexp)
 	 ("C-M-<backspace>" . sp-backward-kill-sexp)
-	 ("C-M-t" . sp-transpose-hybrid-sexp)
+	 ("C-M-t" . sp-transpose-sexp)
 	 ("C-M-r" . sp-rewrap-sexp)
 	 :map emacs-lisp-mode-map
 	 ("M-i" . sp-indent-defun))
