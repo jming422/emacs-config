@@ -5,9 +5,7 @@
  'myample-dark
  '(sml/theme 'dark)
  '(pos-tip-background-color "#073642")
- '(pos-tip-foreground-color "#93a1a1")
- '(term-default-bg-color "#002b36")
- '(term-default-fg-color "#839496"))
+ '(pos-tip-foreground-color "#93a1a1"))
 
 (custom-theme-set-faces
  'myample-dark
