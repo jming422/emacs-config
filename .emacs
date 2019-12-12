@@ -784,6 +784,13 @@ If provided, FILE2 will be opened in the right-side buffer."
   (global-set-key (kbd "H-w") #'my-window-prefix))
 
 
+;; Shell-related stuff
+(add-hook 'shell-mode-hook (lambda ()
+			     (dirtrack-mode)
+			     ;; Teach *shell* how to tell what directory we're in by reading the prompt
+			     (setq dirtrack-list '("^[0-9:]\\{5\\} \\(.+?\\) \\$ " 1))))
+
+
 ;; Other custom functions
 (global-set-key (kbd "M-j") (lambda () (interactive)
 			      (exchange-point-and-mark)
