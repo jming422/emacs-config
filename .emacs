@@ -8,8 +8,7 @@
  '(custom-enabled-themes nil)
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(package-selected-packages
-   (quote
-    (lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell flymd rainbow-delimiters evil expand-region fireplace ample-theme which-key ace-window projectile undo-tree avy multiple-cursors magit company super-save swiper ivy))))
+   '(company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell flymd rainbow-delimiters evil expand-region fireplace ample-theme which-key ace-window projectile undo-tree avy multiple-cursors magit company super-save swiper ivy)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -441,6 +440,12 @@
   :config
   (company-quickhelp-mode))
 
+(use-package company-emoji
+  :after company
+  :config
+  (add-to-list 'company-backends 'company-emoji))
+
+
 ;; Ivy, Swiper, and Counsel
 (use-package ivy
   :demand t
@@ -828,4 +833,12 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
   ;; Mac modifier key rebindings
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'super)
-  (setq mac-right-control-modifier 'hyper))
+  (setq mac-right-control-modifier 'hyper)
+
+  ;; Fix emoji support
+  (defun --provide-emoji-font (frame)
+    (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") frame 'prepend))
+  ;; For when Emacs is started in GUI mode:
+  (--provide-emoji-font nil)
+  ;; Hook for when a frame is created with emacsclient:
+  (add-hook 'after-make-frame-functions '--provide-emoji-font))
