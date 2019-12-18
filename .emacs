@@ -269,14 +269,16 @@
 (global-set-key (kbd "s-s") 'sort-lines)
 
 ;; Org mode
-(setq org-pretty-entities t)
-(setq org-capture-templates
-      (quote
-       (("c" "Simple code link template" entry
-	 (file "~/docs/notes.org")
-	 "** %f: %a" :immediate-finish t))))
-(setq org-default-notes-file "~/Documents/notes.org")
-(global-set-key (kbd "H-o H-c") 'org-capture)
+(use-package org
+  :custom
+  (org-export-backends '(ascii html icalendar latex odt md))
+  (org-pretty-entities t)
+  (org-capture-templates '(("c" "Simple code link template" entry
+			    (file "~/docs/notes.org")
+			    "** %f: %a" :immediate-finish t)))
+  (org-default-notes-file "~/Documents/notes.org")
+  :config
+  (global-set-key (kbd "H-o H-c") 'org-capture))
 
 
 ;; Everything smartparens
