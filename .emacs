@@ -466,7 +466,9 @@
 (use-package counsel
   :after ivy
   :demand t
-  :bind ("s-g" . counsel-ag)
+  :custom (counsel-grep-base-command "rg -i -M 120 --no-heading --line-number '%s' %s")
+  :bind (("C-s" . counsel-grep-or-swiper)
+	 ("s-g" . counsel-rg))
   :config
   (counsel-mode t))
 
