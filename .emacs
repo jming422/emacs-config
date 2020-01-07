@@ -4,17 +4,25 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#454545" "#cd5542" "#6aaf50" "#baba36" "#5180b3" "#ab75c3" "#68a5e9" "#bdbdb3"])
  '(cursor-type (quote bar))
  '(custom-enabled-themes nil)
+ '(custom-safe-themes
+   (quote
+    ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  '(ediff-window-setup-function (quote ediff-setup-windows-plain))
  '(package-selected-packages
-   '(company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell flymd rainbow-delimiters evil expand-region fireplace ample-theme which-key ace-window projectile undo-tree avy multiple-cursors magit company super-save swiper ivy)))
+   (quote
+    (company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell flymd rainbow-delimiters evil expand-region fireplace ample-theme which-key ace-window projectile undo-tree avy multiple-cursors magit company super-save swiper ivy)))
+ '(pos-tip-background-color "#073642")
+ '(pos-tip-foreground-color "#93a1a1"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(lsp-ui-sideline-global ((t nil))))
 
 ;; Un-disabled builtins
 (put 'upcase-region 'disabled nil)
@@ -189,18 +197,13 @@
 
 (use-package spotify
   :load-path "git-lisp/spotify.el/"
-  :init
-  (require 'cl)
-  ;; (defun spotify-transport-toggle ()
-  ;;   (interactive)
-  ;;   (if (equal spotify-transport 'connect)
-  ;; 	(setq spotify-transport 'apple)
-  ;;       (setq spotify-transport 'connect)))
-  :custom ((spotify-transport 'apple)
-	   (spotify-mode-line-format "[%p %a | %t]")
-	   (spotify-mode-line-playing-text "▶")
-	   (spotify-mode-line-paused-text "▌▌")
-	   (spotify-mode-line-stopped-text "■"))
+  :custom
+  (spotify-transport 'apple)
+  (spotify-player-status-format "[%p %a | %t]")
+  (spotify-player-status-playing-text "▶")
+  (spotify-player-status-paused-text "▌▌")
+  (spotify-player-status-stopped-text "■")
+  :init (require 'cl)
   :bind-keymap ("M-m" . spotify-command-map)
   :config
   (global-spotify-remote-mode))
@@ -344,9 +347,7 @@
   (lsp-clients-go-format-tool "gofmt")
   (lsp-enable-snippet nil)
   (lsp-keep-workspace-alive nil)
-  (lsp-prefer-flymake nil)
-  :config
-  (lsp-ui-mode))
+  (lsp-prefer-flymake nil))
 
 (use-package sh-mode
   :ensure nil
@@ -380,6 +381,7 @@
 	(expand-file-name "/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin/sourcekit-lsp")))
 
 (use-package lsp-ui
+  :hook lsp-mode-hook
   :commands lsp-ui-mode
   :custom
   (lsp-ui-doc-enable nil)
@@ -794,6 +796,7 @@ If provided, FILE2 will be opened in the right-side buffer."
 
 
 ;; Shell-related stuff
+(setq explicit-shell-file-name "bash")
 (add-hook 'shell-mode-hook (lambda ()
 			     (dirtrack-mode)
 			     ;; Teach *shell* how to tell what directory we're in by reading the prompt
