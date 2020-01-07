@@ -133,7 +133,7 @@
     (sml/setup))
   (setq rm-blacklist (format "^ \\(%s\\)$"
 			     (mapconcat #'identity
-					'("Git.*" "Projectile.*" "ARev" "company" "h-i-g" "Fira" "counsel" "ivy" "yas" "SP" "WK" "super-save" "ElDoc" "Rbow")
+					'("Git.*" "Projectile.*" "ARev" "company" "h-i-g" "Fira" "counsel" "ivy" "yas" "SP" "WK" "super-save" "ElDoc" "Rbow" "Undo-Tree")
 					"\\|")))
   (setup-sml-secrets)
   ;; The below sets the default to light, but iTerm's hook for switching between dark/light
