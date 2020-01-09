@@ -804,11 +804,7 @@ If provided, FILE2 will be opened in the right-side buffer."
 			     (setq dirtrack-list '("^[0-9:]\\{5\\} \\(.+?\\) \\$ " 1))))
 
 
-;; Other custom functions
-(global-set-key (kbd "M-j") (lambda () (interactive)
-			      (exchange-point-and-mark)
-			      (keyboard-quit)))
-
+;; Ediff customizations
 (defun ediff-copy-both-to-C ()
   "Copy both variants A and B to the ediff buffer C."
   (interactive)
@@ -818,6 +814,15 @@ If provided, FILE2 will be opened in the right-side buffer."
                     (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
 
 (add-hook 'ediff-keymap-setup-hook (lambda () (define-key ediff-mode-map "d" 'ediff-copy-both-to-C)))
+(add-hook 'ediff-before-setup-hook 'eyebrowse-create-window-config)
+(add-hook 'ediff-suspend-hook 'eyebrowse-close-window-config)
+(add-hook 'ediff-quit-hook 'eyebrowse-close-window-config)
+
+
+;; Other custom functions
+(global-set-key (kbd "M-j") (lambda () (interactive)
+			      (exchange-point-and-mark)
+			      (keyboard-quit)))
 
 (defun prompt-for-file ()
   "Prompt for a file and return its contents."
@@ -837,6 +842,7 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
 	(setenv k v)))))
 
 
+;; macOS customizations
 (when (eq system-type 'darwin)
   ;; Mac modifier key rebindings
   (setq mac-command-modifier 'meta)
