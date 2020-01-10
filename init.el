@@ -6,15 +6,13 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#454545" "#cd5542" "#6aaf50" "#baba36" "#5180b3" "#ab75c3" "#68a5e9" "#bdbdb3"])
- '(cursor-type (quote bar))
+ '(cursor-type 'bar)
  '(custom-enabled-themes nil)
  '(custom-safe-themes
-   (quote
-    ("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
- '(ediff-window-setup-function (quote ediff-setup-windows-plain))
+   '("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
+ '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(package-selected-packages
-   (quote
-    (company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell flymd rainbow-delimiters evil expand-region fireplace ample-theme which-key ace-window projectile undo-tree avy multiple-cursors magit company super-save swiper ivy)))
+   '(forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell flymd rainbow-delimiters evil expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1"))
 (custom-set-faces
@@ -488,11 +486,13 @@
   (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
 
 
-;; Magit
+;; Magit & Forge
 (use-package magit
   :custom (magit-diff-use-overlays nil)
   :bind ("C-x g" . magit-status))
 
+(use-package forge
+  :after magit)
 
 ;; Avy
 (use-package avy
@@ -764,7 +764,10 @@ If provided, FILE2 will be opened in the right-side buffer."
 
 (use-package ace-window
   :bind (("M-o" . ace-window)
-	 ("s-o" . ace-swap-window)))
+	 ("s-o" . ace-swap-window))
+  :custom-face
+  (aw-leading-char-face ((t (:height unspecified))))
+  (aw-background-face ((t (:weight unspecified)))))
 
 (use-package eyebrowse
   :demand t
