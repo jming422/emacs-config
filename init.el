@@ -12,7 +12,7 @@
    '("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(package-selected-packages
-   '(forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell flymd rainbow-delimiters evil expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
+   '(verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell flymd rainbow-delimiters evil expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1"))
 (custom-set-faces
@@ -56,6 +56,7 @@
 
 
 ;; Load non-public setings/configs
+(setq auth-sources '("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
 (load "~/.emacs.d/mysecrets.el" t)
 
 
@@ -165,21 +166,24 @@
   :after which-key)
 
 (use-package git-gutter
+  :custom
+  (git-gutter:ask-p nil)
   :config
   (global-git-gutter-mode +1)
   (defvar git-gutter-map (make-sparse-keymap))
+  (defvar git-gutter-stop (lambda ()))
   (bind-keys :map git-gutter-map
 	     ("n" . git-gutter:next-hunk)
 	     ("p" . git-gutter:previous-hunk)
 	     ("s" . git-gutter:stage-hunk)
 	     ("v" . git-gutter:revert-hunk)
 	     ("d" . git-gutter:popup-hunk)
-	     ("SPC" . git-gutter:mark-hunk))
+	     ("SPC" . git-gutter:mark-hunk)
+	     ("q" . git-gutter-stop))
   (hercules-def
-   :toggle-funs #'git-gutter:statistic
-   :hide-funs '(git-gutter:revert-hunk git-gutter:stage-hunk)
-   :keymap 'git-gutter-map
-   :transient t)
+   :show-funs #'git-gutter:statistic
+   :hide-funs #'git-gutter-stop
+   :keymap 'git-gutter-map)
   (global-set-key (kbd "H-g") #'git-gutter:statistic))
 
 (use-package dash-at-point
@@ -766,8 +770,7 @@ If provided, FILE2 will be opened in the right-side buffer."
   :bind (("M-o" . ace-window)
 	 ("s-o" . ace-swap-window))
   :custom-face
-  (aw-leading-char-face ((t (:height unspecified))))
-  (aw-background-face ((t (:weight unspecified)))))
+  (aw-leading-char-face ((t . (:height 1.1 :weight bold :foreground "#e361c3")))))
 
 (use-package eyebrowse
   :demand t
@@ -798,6 +801,10 @@ If provided, FILE2 will be opened in the right-side buffer."
    :transient t)
   (global-set-key (kbd "H-w") #'my-window-prefix))
 
+
+;; Verb & HTTP request helpers
+(use-package verb
+  :mode ("\\.verb\\'" . verb-mode))
 
 ;; Shell-related stuff
 (setq explicit-shell-file-name "bash")
