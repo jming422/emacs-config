@@ -423,7 +423,7 @@
   (let (quit)
     (defvar my-dap-map (make-sparse-keymap))
     (bind-keys :map my-dap-map
-	       ("C-w b" . dap-ui-breakpoints)
+	       ("C-w b" . dap-ui-breakpoints-list)
 	       ("C-w i" . dap-ui-inspect)
 	       ("C-w l" . dap-ui-locals)
 	       ("C-w s" . dap-ui-sessions)
@@ -769,11 +769,13 @@ If provided, FILE2 will be opened in the right-side buffer."
   (magit-status))
 
 (defun init-dap ()
-  "Initialize the window setup for DAP.  Expects the windows to be preconfigured as with `init-project'."
+  "Initialize the window setup for DAP.
+Expects the windows to be preconfigured as with `init-project'
+with focus residing in the leftmost window."
   (interactive)
   (dap-ui-repl)
   (other-window 1)
-  (dap-ui-breakpoints)
+  (dap-ui-breakpoints-list)
   (dap-ui-sessions)
   (dap-ui-locals))
 
