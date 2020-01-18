@@ -310,6 +310,8 @@
 	 ("C-M-w" . sp-copy-sexp)
 	 ("C-M-u" . sp-backward-up-sexp)
 	 ("C-M-d" . sp-down-sexp)
+	 ("C-M-f". sp-forward-sexp)
+	 ("C-M-b". sp-backward-sexp)
 	 ("C-M-<backspace>" . sp-backward-kill-sexp)
 	 ("C-M-t" . sp-transpose-sexp)
 	 ("C-M-r" . sp-rewrap-sexp)
@@ -861,7 +863,7 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
 		      (buffer-string)
 		    (prompt-for-file))))
     (dolist (line (split-string the-text "\n" t))
-      (-let (((k v) (split-string line "=" t)))
+      (-let (((k v) (split-string (replace-regexp-in-string "^export " "" line) "=" t)))
 	(setenv k v)))))
 
 
