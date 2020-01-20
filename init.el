@@ -71,7 +71,7 @@
 (global-set-key (kbd "M-j") (lambda () (interactive)
 			      (exchange-point-and-mark)
 			      (keyboard-quit)))
-(global-set-key (kbd "C-x p") #'list-processes)
+(global-set-key (kbd "C-x C-p") #'list-processes)
 
 ;; Save and restore desktop configuration on emacs quit/launch
 ;;(desktop-save-mode t)
