@@ -20,7 +20,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(lsp-ui-sideline-global ((t nil))))
+)
 
 ;; Un-disabled builtins
 (put 'upcase-region 'disabled nil)
@@ -49,7 +49,7 @@
 
 ;; Make sure exec-path gets loaded right
 (use-package exec-path-from-shell
-;;;;  :if (eq system-type 'darwin)
+  :if (eq system-type 'darwin)
   :demand t
   :config
   (exec-path-from-shell-initialize))
@@ -60,23 +60,25 @@
 (load "~/.emacs.d/mysecrets.el" t)
 
 
-;; Clear keybindings used by other applications (*COUGH COUGH* amethyst *COUGH*)
-(global-unset-key (kbd "s-C"))
-(global-unset-key (kbd "s-D"))
-(global-unset-key (kbd "s-E"))
-(global-unset-key (kbd "s-H"))
-(global-unset-key (kbd "s-L"))
-(global-unset-key (kbd "s-M"))
-(global-unset-key (kbd "s-S"))
-
-
-;; Here you go, Becker:
-(use-package evil
-  :bind ("s-v" . evil-mode))
-
+;; Generic global keybindings
 (global-set-key (kbd "<escape>") 'keyboard-quit)
+(global-set-key (kbd "M-p") 'backward-paragraph)
+(global-set-key (kbd "M-n") 'forward-paragraph)
+(global-set-key (kbd "H-u") 'upcase-char)
+(global-set-key (kbd "H-d") 'downcase-dwim)
+(global-set-key (kbd "s-s") 'sort-lines)
+(global-set-key (kbd "s-%") 'query-replace-regexp)
+(global-set-key (kbd "M-j") (lambda () (interactive)
+			      (exchange-point-and-mark)
+			      (keyboard-quit)))
 
-;; Super Save, ON!
+
+;; Save and restore desktop configuration on emacs quit/launch
+;;(desktop-save-mode t)
+;; Turns out I didn't this all that helpful, and it slowed down init a good bit.
+
+
+;; Super Save, ON! ...or not.. 😬
 (use-package super-save
   :disabled
   ;; Here's why:
@@ -92,8 +94,6 @@
   :config
   (super-save-mode t))
 
-;; Save and restore desktop configuration on emacs quit/launch
-;;(desktop-save-mode t)
 
 ;; Asthetic alterations & theming
 (tool-bar-mode -1)
@@ -103,8 +103,6 @@
 (show-paren-mode t)
 (column-number-mode)
 (global-eldoc-mode)
-
-
 (add-to-list 'default-frame-alist
 	     '(font . "Fira Code-12"))
 
@@ -198,11 +196,11 @@
   (global-set-key (kbd "H-g") #'git-gutter:statistic))
 
 (use-package dash-at-point
-;;  :if (eq system-type 'darwin)
+  :if (eq system-type 'darwin)
+  :ensure-system-package ("/Applications/Dash.app" . "brew cask install dash")
   :config
   (let ((docsets (concat (alist-get 'python-mode dash-at-point-mode-alist) ",boto3,fnc,pyrsistent,toolz")))
     (add-to-list 'dash-at-point-mode-alist `(python-mode . ,docsets)))
-
   (add-to-list 'dash-at-point-mode-alist '(rjsx-mode . "javascript,nodejs,lodash,moment,jest,react,awsjs,css"))
   (global-set-key (kbd "s-c") nil)
   (global-set-key (kbd "s-c s-d") 'dash-at-point))
@@ -211,7 +209,7 @@
 (use-package spotify
   :load-path "git-lisp/spotify.el/"
   :custom
-  (spotify-transport 'apple)
+  (spotify-transport (if (eq system-type 'darwin) 'apple 'connect))
   (spotify-player-status-format "[%p %a | %t]")
   (spotify-player-status-playing-text "▶")
   (spotify-player-status-paused-text "▌▌")
@@ -275,14 +273,6 @@
    :transient t)
   (global-set-key (kbd "H-m") #'mc-place))
 
-(global-set-key (kbd "M-p") 'backward-paragraph)
-(global-set-key (kbd "M-n") 'forward-paragraph)
-
-
-;; Text modification
-(global-set-key (kbd "H-u") 'upcase-char)
-(global-set-key (kbd "H-d") 'downcase-dwim)
-(global-set-key (kbd "s-s") 'sort-lines)
 
 ;; Org mode
 (use-package org
@@ -290,7 +280,7 @@
   (org-export-backends '(ascii html icalendar latex odt md))
   (org-pretty-entities t)
   (org-capture-templates '(("c" "Simple code link template" entry
-			    (file "~/docs/notes.org")
+			    (file "~/Documents/notes.org")
 			    "** %f: %a" :immediate-finish t)))
   (org-default-notes-file "~/Documents/notes.org")
   :config
@@ -364,22 +354,6 @@
   (lsp-keep-workspace-alive nil)
   (lsp-prefer-flymake nil))
 
-(use-package sh-mode
-  :ensure nil
-  :bind (:map sh-mode-map
-	 ("M-." . lsp-goto-implementation)))
-
-(use-package java-mode
-  :ensure nil
-  :bind (:map java-mode-map
-	 ("M-." . lsp-goto-implementation)))
-
-(use-package ruby-mode
-  :ensure nil
-  :bind (:map ruby-mode-map
-	 ("M-." . lsp-goto-implementation)))
-
-
 (use-package company-lsp
   :after (lsp-mode company)
   :custom (company-lsp-enable-snippet nil)
@@ -390,6 +364,7 @@
   :after lsp-mode)
 
 (use-package lsp-sourcekit
+  :disabled ;; Not writing Swift at the moment, haven't gotten around to installing the toolchain again
   :after lsp-mode
   :config
   (setq lsp-sourcekit-executable
@@ -415,7 +390,6 @@
 
 ;; DAP & Debugging
 (use-package dap-mode
-;;  :if (eq system-type 'darwin)
   :hook ((lsp-mode . dap-mode)
 	 (python-mode . (lambda () (require 'dap-python) (register-dap-templates-python)))
 	 (go-mode . (lambda () (require 'dap-go) (dap-go-setup)))
@@ -490,8 +464,6 @@
   :config
   (counsel-mode t))
 
-(global-set-key (kbd "s-%") 'query-replace-regexp)
-
 
 ;; Projectile
 (use-package projectile
@@ -521,7 +493,7 @@
 	 ("M-s" . avy-goto-char-timer)))
 
 
-;; Cider customizations
+;; Clojure & Cider
 (use-package cider
   :defer t
   :after smartparens
@@ -566,7 +538,7 @@
   :config
   (setq elpy-eldoc-show-current-function nil)
   ;; Bugged on macOS, too lazy to fix, would probably require https://pypi.org/project/gnureadline/
-  (setq python-shell-completion-native-enable nil)
+  (when (eq system-type 'darwin) (setq python-shell-completion-native-enable nil))
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook (lambda () (add-hook 'before-save-hook 'elpy-format-code nil 'local))))
 
@@ -578,14 +550,10 @@
          ("M-n" . nil)
          ("M-p" . nil)))
 
-(use-package flymd
-  :after markdown-mode
-  :commands flymd-flyit
-  :bind (:map markdown-mode-map
-	 ("C-c M-j" . flymd-flyit)))
 
 ;; Graphviz
 (use-package graphviz-dot-mode)
+
 
 ;; Go
 (use-package go-mode
@@ -611,7 +579,7 @@
   :hook go-mode)
 
 
-;; Dart / Flutter
+;; Dart & Flutter
 (use-package dart-mode
   :bind (:map dart-mode-map
 	 ("M-i" . dart-format)
@@ -623,6 +591,7 @@
   :after dart-mode
   :bind (:map dart-mode-map
          ("C-c C-k" . flutter-run-or-hot-reload)))
+
 
 ;; Rust
 (use-package rust-mode
@@ -653,14 +622,13 @@
   :defer)
 
 
-;; CSS
+;; Web major modes
 (use-package css-mode
   :after prettier-js
   :bind (:map css-mode-map
          ("M-i" . prettier-js)
 	 ("M-." . lsp-goto-implementation)))
 
-;; Web Mode
 (use-package web-mode
   :after prettier-js
   :mode ("\\.ejs\\'" "\\.erb\\'" "\\.mustache\\'")
@@ -674,14 +642,17 @@
 (use-package jade-mode
   :mode ("\\.jade\\'" "\\.pug\\'"))
 
-
-;; PHP
 (use-package php-mode
   :mode ("\\.\\php\\'" "\\.\\phtml\\'"))
 
 (use-package company-php
   :after (:any php-mode web-mode)
   :hook (php-mode web-mode))
+
+(use-package ruby-mode
+  :ensure nil
+  :bind (:map ruby-mode-map
+	 ("M-." . lsp-goto-implementation)))
 
 
 ;; JavaScript / Node.js / React (JSX)
@@ -708,6 +679,7 @@
 
 (use-package prettier-js
   :demand t
+  :ensure-system-package (prettier . "npm i -g prettier")
 ;;  :commands (prettier-js prettier-js-mode)
   :hook ((rjsx-mode yaml-mode css-mode json-mode web-mode) . prettier-js-mode))
 
@@ -737,6 +709,31 @@
 
 (use-package docker-compose-mode
   :mode "docker-compose[^/]*\\.yml\\'")
+
+
+;; Java
+(use-package java-mode
+  :ensure nil
+  :bind (:map java-mode-map
+	 ("M-." . lsp-goto-implementation)))
+
+
+;; Verb & HTTP request helpers
+(use-package verb
+  :mode ("\\.verb\\'" . verb-mode))
+
+
+;; Shell-related stuff
+(use-package sh-mode
+  :ensure nil
+  :bind (:map sh-mode-map
+	 ("M-." . lsp-goto-implementation)))
+
+(setq explicit-shell-file-name "bash")
+(add-hook 'shell-mode-hook (lambda ()
+			     (dirtrack-mode)
+			     ;; Teach *shell* how to tell what directory we're in by reading the prompt
+			     (setq dirtrack-list '("^[0-9:]\\{5\\} \\(.+?\\) \\$ " 1))))
 
 
 ;; Window stuff
@@ -817,18 +814,6 @@ with focus residing in the leftmost window."
   (global-set-key (kbd "H-w") #'my-window-prefix))
 
 
-;; Verb & HTTP request helpers
-(use-package verb
-  :mode ("\\.verb\\'" . verb-mode))
-
-;; Shell-related stuff
-(setq explicit-shell-file-name "bash")
-(add-hook 'shell-mode-hook (lambda ()
-			     (dirtrack-mode)
-			     ;; Teach *shell* how to tell what directory we're in by reading the prompt
-			     (setq dirtrack-list '("^[0-9:]\\{5\\} \\(.+?\\) \\$ " 1))))
-
-
 ;; Ediff customizations
 (defun ediff-copy-both-to-C ()
   "Copy both variants A and B to the ediff buffer C."
@@ -845,10 +830,6 @@ with focus residing in the leftmost window."
 
 
 ;; Other custom functions
-(global-set-key (kbd "M-j") (lambda () (interactive)
-			      (exchange-point-and-mark)
-			      (keyboard-quit)))
-
 (defun prompt-for-file ()
   "Prompt for a file and return its contents."
   (with-temp-buffer
