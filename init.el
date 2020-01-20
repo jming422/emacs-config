@@ -61,17 +61,17 @@
 
 
 ;; Generic global keybindings
-(global-set-key (kbd "<escape>") 'keyboard-quit)
-(global-set-key (kbd "M-p") 'backward-paragraph)
-(global-set-key (kbd "M-n") 'forward-paragraph)
-(global-set-key (kbd "H-u") 'upcase-char)
-(global-set-key (kbd "H-d") 'downcase-dwim)
-(global-set-key (kbd "s-s") 'sort-lines)
-(global-set-key (kbd "s-%") 'query-replace-regexp)
+(global-set-key (kbd "<escape>") #'keyboard-quit)
+(global-set-key (kbd "M-p") #'backward-paragraph)
+(global-set-key (kbd "M-n") #'forward-paragraph)
+(global-set-key (kbd "H-u") #'upcase-char)
+(global-set-key (kbd "H-d") #'downcase-dwim)
+(global-set-key (kbd "s-s") #'sort-lines)
+(global-set-key (kbd "s-%") #'query-replace-regexp)
 (global-set-key (kbd "M-j") (lambda () (interactive)
 			      (exchange-point-and-mark)
 			      (keyboard-quit)))
-
+(global-set-key (kbd "C-x p") #'list-processes)
 
 ;; Save and restore desktop configuration on emacs quit/launch
 ;;(desktop-save-mode t)
@@ -203,7 +203,7 @@
     (add-to-list 'dash-at-point-mode-alist `(python-mode . ,docsets)))
   (add-to-list 'dash-at-point-mode-alist '(rjsx-mode . "javascript,nodejs,lodash,moment,jest,react,awsjs,css"))
   (global-set-key (kbd "s-c") nil)
-  (global-set-key (kbd "s-c s-d") 'dash-at-point))
+  (global-set-key (kbd "s-c s-d") #'dash-at-point))
 
 
 (use-package spotify
@@ -284,13 +284,13 @@
 			    "** %f: %a" :immediate-finish t)))
   (org-default-notes-file "~/Documents/notes.org")
   :config
-  (global-set-key (kbd "H-o H-c") 'org-capture))
+  (global-set-key (kbd "H-o H-c") #'org-capture))
 
 
 ;; Everything smartparens
 (use-package smartparens
   :demand t
-  :custom (sp-ignore-modes-list (quote (minibuffer-inactive-mode)))
+  :custom (sp-ignore-modes-list '(minibuffer-inactive-mode))
   :bind (:map smartparens-mode-map
 	 ("C-k" . sp-kill-hybrid-sexp)
 	 ("M-[" . sp-backward-slurp-sexp)
@@ -824,9 +824,9 @@ with focus residing in the leftmost window."
                     (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
 
 (add-hook 'ediff-keymap-setup-hook (lambda () (define-key ediff-mode-map "d" 'ediff-copy-both-to-C)))
-(add-hook 'ediff-before-setup-hook 'eyebrowse-create-window-config)
-(add-hook 'ediff-suspend-hook 'eyebrowse-close-window-config)
-(add-hook 'ediff-quit-hook 'eyebrowse-close-window-config)
+(add-hook 'ediff-before-setup-hook #'eyebrowse-create-window-config)
+(add-hook 'ediff-suspend-hook #'eyebrowse-close-window-config)
+(add-hook 'ediff-quit-hook #'eyebrowse-close-window-config)
 
 
 ;; Other custom functions
@@ -861,4 +861,4 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
   ;; For when Emacs is started in GUI mode:
   (--provide-emoji-font nil)
   ;; Hook for when a frame is created with emacsclient:
-  (add-hook 'after-make-frame-functions '--provide-emoji-font))
+  (add-hook 'after-make-frame-functions #'--provide-emoji-font))
