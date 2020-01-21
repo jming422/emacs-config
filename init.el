@@ -12,7 +12,7 @@
    '("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(package-selected-packages
-   '(verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
+   '(use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1"))
 (custom-set-faces
@@ -39,12 +39,15 @@
 
 (package-initialize)
 
+
+;; Setup use-package
 (eval-when-compile
   (require 'use-package))
 (require 'bind-key)
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 ;;(setq use-package-verbose t)
+(use-package use-package-ensure-system-package)
 
 
 ;; Make sure exec-path gets loaded right
@@ -72,6 +75,7 @@
 			      (exchange-point-and-mark)
 			      (keyboard-quit)))
 (global-set-key (kbd "C-x C-p") #'list-processes)
+
 
 ;; Save and restore desktop configuration on emacs quit/launch
 ;;(desktop-save-mode t)
@@ -167,33 +171,17 @@
   :config
   (highlight-indentation-current-column-mode))
 
+(use-package fireplace
+  :commands fireplace)
+
+
+;; Binding and app-control related packages
 (use-package which-key
   :config
   (which-key-mode))
 
 (use-package hercules
   :after which-key)
-
-(use-package git-gutter
-  :custom
-  (git-gutter:ask-p nil)
-  :config
-  (global-git-gutter-mode +1)
-  (defvar git-gutter-map (make-sparse-keymap))
-  (defvar git-gutter-stop (lambda ()))
-  (bind-keys :map git-gutter-map
-	     ("n" . git-gutter:next-hunk)
-	     ("p" . git-gutter:previous-hunk)
-	     ("s" . git-gutter:stage-hunk)
-	     ("v" . git-gutter:revert-hunk)
-	     ("d" . git-gutter:popup-hunk)
-	     ("SPC" . git-gutter:mark-hunk)
-	     ("q" . git-gutter-stop))
-  (hercules-def
-   :show-funs #'git-gutter:statistic
-   :hide-funs #'git-gutter-stop
-   :keymap 'git-gutter-map)
-  (global-set-key (kbd "H-g") #'git-gutter:statistic))
 
 (use-package dash-at-point
   :if (eq system-type 'darwin)
@@ -204,7 +192,6 @@
   (add-to-list 'dash-at-point-mode-alist '(rjsx-mode . "javascript,nodejs,lodash,moment,jest,react,awsjs,css"))
   (global-set-key (kbd "s-c") nil)
   (global-set-key (kbd "s-c s-d") #'dash-at-point))
-
 
 (use-package spotify
   :load-path "git-lisp/spotify.el/"
@@ -218,9 +205,6 @@
   :bind-keymap ("M-m" . spotify-command-map)
   :config
   (global-spotify-remote-mode))
-
-(use-package fireplace
-  :commands fireplace)
 
 
 ;; Region/selection
@@ -240,6 +224,15 @@
 
 ;; Movement enhancements & multiple cursors
 (global-subword-mode)
+
+(use-package avy
+  :custom
+  (avy-single-candidate-jump nil)
+  (avy-timeout-seconds 0.37)
+  :bind (("M-l" . avy-goto-line)
+	 ("M-c" . avy-goto-word-1)
+	 ("M-s" . avy-goto-char-timer)))
+
 
 (defvar mc-place (lambda () (message "Entering multiple-cursors placement state")))
 (use-package multiple-cursors
@@ -287,7 +280,7 @@
   (global-set-key (kbd "H-o H-c") #'org-capture))
 
 
-;; Everything smartparens
+;; Smartparens
 (use-package smartparens
   :demand t
   :custom (sp-ignore-modes-list '(minibuffer-inactive-mode))
@@ -314,12 +307,96 @@
   )
 
 
-;; yasnippet
+;; Snippets
 (use-package yasnippet
   :hook (prog-mode . yas-global-mode))
 
 (use-package yasnippet-snippets
   :after yasnippet)
+
+
+;; Company (autocomplete)
+(use-package company
+  :demand t
+  :bind ("TAB" . company-indent-or-complete-common)
+  :config
+  (setq company-tooltip-align-annotations t)
+  (global-company-mode t))
+
+(use-package company-quickhelp
+  :after company
+  :config
+  (company-quickhelp-mode))
+
+(use-package company-emoji
+  :after company
+  :config
+  (add-to-list 'company-backends 'company-emoji))
+
+
+;; Ivy, Swiper, and Counsel
+(use-package ivy
+  :demand t
+  :bind (:map ivy-minibuffer-map
+         ("M-o" . nil)
+         ("M-h" . ivy-dispatching-done))
+  :config
+  (ivy-mode t)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t))
+
+(use-package swiper
+  :after ivy
+  :bind ("C-s" . swiper))
+
+(use-package counsel
+  :after ivy
+  :demand t
+  :custom (counsel-grep-base-command "rg -i -M 120 --no-heading --line-number '%s' %s")
+  :bind (("C-s" . counsel-grep-or-swiper)
+	 ("s-g" . counsel-rg))
+  :config
+  (counsel-mode t))
+
+
+;; Projectile
+(use-package projectile
+  :bind ("s-f" . projectile-commander)
+  :config
+  (projectile-mode 1)
+  (setq projectile-completion-system 'ivy)
+  (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
+  (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
+
+
+;; Git, Magit, and Forge
+(use-package magit
+  :custom (magit-diff-use-overlays nil)
+  :bind ("C-x g" . magit-status))
+
+(use-package forge
+  :after magit)
+
+(use-package git-gutter
+  :custom
+  (git-gutter:ask-p nil)
+  :config
+  (global-git-gutter-mode +1)
+  (defvar git-gutter-map (make-sparse-keymap))
+  (defvar git-gutter-stop (lambda ()))
+  (bind-keys :map git-gutter-map
+	     ("n" . git-gutter:next-hunk)
+	     ("p" . git-gutter:previous-hunk)
+	     ("s" . git-gutter:stage-hunk)
+	     ("v" . git-gutter:revert-hunk)
+	     ("d" . git-gutter:popup-hunk)
+	     ("SPC" . git-gutter:mark-hunk)
+	     ("q" . git-gutter-stop))
+  (hercules-def
+   :show-funs #'git-gutter:statistic
+   :hide-funs #'git-gutter-stop
+   :keymap 'git-gutter-map)
+  (global-set-key (kbd "H-g") #'git-gutter:statistic))
 
 
 ;; Syntax checking + LSP
@@ -419,78 +496,6 @@
    :hide-funs '(dap-disconnect quit dap-eval dap-switch-stack-frame)
    :keymap 'my-dap-map)
   (global-set-key (kbd "H-b") #'my-dap-prefix)))
-
-
-;; Company (autocomplete)
-(use-package company
-  :demand t
-  :bind ("TAB" . company-indent-or-complete-common)
-  :config
-  (setq company-tooltip-align-annotations t)
-  (global-company-mode t))
-
-(use-package company-quickhelp
-  :after company
-  :config
-  (company-quickhelp-mode))
-
-(use-package company-emoji
-  :after company
-  :config
-  (add-to-list 'company-backends 'company-emoji))
-
-
-;; Ivy, Swiper, and Counsel
-(use-package ivy
-  :demand t
-  :bind (:map ivy-minibuffer-map
-         ("M-o" . nil)
-         ("M-h" . ivy-dispatching-done))
-  :config
-  (ivy-mode t)
-  (setq ivy-use-virtual-buffers t)
-  (setq enable-recursive-minibuffers t))
-
-(use-package swiper
-  :after ivy
-  :bind ("C-s" . swiper))
-
-(use-package counsel
-  :after ivy
-  :demand t
-  :custom (counsel-grep-base-command "rg -i -M 120 --no-heading --line-number '%s' %s")
-  :bind (("C-s" . counsel-grep-or-swiper)
-	 ("s-g" . counsel-rg))
-  :config
-  (counsel-mode t))
-
-
-;; Projectile
-(use-package projectile
-  :bind ("s-f" . projectile-commander)
-  :config
-  (projectile-mode 1)
-  (setq projectile-completion-system 'ivy)
-  (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
-  (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
-
-
-;; Magit & Forge
-(use-package magit
-  :custom (magit-diff-use-overlays nil)
-  :bind ("C-x g" . magit-status))
-
-(use-package forge
-  :after magit)
-
-;; Avy
-(use-package avy
-  :custom
-  (avy-single-candidate-jump nil)
-  (avy-timeout-seconds 0.37)
-  :bind (("M-l" . avy-goto-line)
-	 ("M-c" . avy-goto-word-1)
-	 ("M-s" . avy-goto-char-timer)))
 
 
 ;; Clojure & Cider
@@ -622,7 +627,7 @@
   :defer)
 
 
-;; Web major modes
+;; Web modes
 (use-package css-mode
   :after prettier-js
   :bind (:map css-mode-map
