@@ -52,7 +52,6 @@
 
 ;; Make sure exec-path gets loaded right
 (use-package exec-path-from-shell
-  :if (eq system-type 'darwin)
   :demand t
   :config
   (exec-path-from-shell-initialize))
