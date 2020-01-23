@@ -144,7 +144,7 @@
     (sml/setup))
   (setq rm-blacklist (format "^ \\(%s\\)$"
 			     (mapconcat #'identity
-					'("Git.*" "Projectile.*" "ARev" "company" "h-i-g" "Fira" "counsel" "ivy" "yas" "SP" "WK" "super-save" "ElDoc" "Rbow" "Undo-Tree" ",")
+					'("Git.*" "Projectile.*" "ARev" "company" "h-i-g" "counsel" "ivy" "yas" "SP" "WK" "super-save" "ElDoc" "Rbow" "Undo-Tree" ",")
 					"\\|")))
   (setup-sml-secrets)
   ;; The below sets the default to light, but iTerm's hook for switching between dark/light
@@ -771,6 +771,8 @@ If provided, FILE2 will be opened in the right-side buffer."
   (other-window 2)
   (magit-status))
 
+(global-set-key (kbd "H-i e") (lambda () (init-project "~/Documents/emacs-config/init.el" "~/.emacs.d/init.el")))
+
 (defun init-dap ()
   "Initialize the window setup for DAP.
 Expects the windows to be preconfigured as with `init-project'
@@ -862,6 +864,16 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
   ;; Fix emoji support
   (defun --provide-emoji-font (frame)
     (set-fontset-font t 'symbol (font-spec :family "Apple Color Emoji") frame 'prepend))
+  ;; For when Emacs is started in GUI mode:
+  (--provide-emoji-font nil)
+  ;; Hook for when a frame is created with emacsclient:
+  (add-hook 'after-make-frame-functions #'--provide-emoji-font))
+
+;; Linux customizations
+(when (eq system-type 'gnu/linux)
+  ;; Fix emoji support
+  (defun --provide-emoji-font (frame)
+    (set-fontset-font t 'symbol (font-spec :family "Noto Color Emoji") frame 'prepend))
   ;; For when Emacs is started in GUI mode:
   (--provide-emoji-font nil)
   ;; Hook for when a frame is created with emacsclient:
