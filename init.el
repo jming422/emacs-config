@@ -156,6 +156,7 @@
 (use-package fira-code-mode
   :ensure nil
   :load-path "git-lisp/fira-code-mode"
+  :custom (fira-code-mode-disabled-ligatures '("www" "[]" "#{" "#(" "#_" "#_(" "x"))
   :hook prog-mode)
 
 (use-package rainbow-mode
@@ -277,6 +278,12 @@
   (org-default-notes-file "~/Documents/notes.org")
   :config
   (global-set-key (kbd "H-o H-c") #'org-capture))
+
+
+;; Verb & HTTP request helpers
+(use-package verb
+  :after org
+  :config (define-key org-mode-map (kbd "C-c C-r") verb-mode-prefix-map))
 
 
 ;; Smartparens
@@ -720,11 +727,6 @@
   :ensure nil
   :bind (:map java-mode-map
 	 ("M-." . lsp-goto-implementation)))
-
-
-;; Verb & HTTP request helpers
-(use-package verb
-  :mode ("\\.verb\\'" . verb-mode))
 
 
 ;; Shell-related stuff
