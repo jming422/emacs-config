@@ -774,7 +774,7 @@ If provided, FILE2 will be opened in the right-side buffer."
   (magit-status))
 
 ;; init-emacs
-(global-set-key (kbd "H-i e") (lambda () (init-project "~/Documents/emacs-config/init.el" "~/.emacs.d/init.el")))
+(global-set-key (kbd "H-i e") (lambda () (interactive) (init-project "~/Documents/emacs-config/init.el" "~/.emacs.d/init.el")))
 
 (defun init-dap ()
   "Initialize the window setup for DAP.
