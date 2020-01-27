@@ -510,26 +510,9 @@
   :after smartparens
   :custom (cider-default-cljs-repl (quote figwheel))
   :bind (:map cider-mode-map
-         ("M-i" . sp-indent-defun))
+              ("M-i" . cider-format-buffer))
   :config
   (cider-repl-toggle-pretty-printing))
-
-(use-package clojure-mode
-  :mode ("\\.clj\\'" "\\.cljs\\'" "\\.edn\\'")
-  :config
-  (define-clojure-indent
-    (defroutes 'defun)
-    (GET 2)
-    (POST 2)
-    (PUT 2)
-    (DELETE 2)
-    (HEAD 2)
-    (ANY 2)
-    (OPTIONS 2)
-    (PATCH 2)
-    (rfn 2)
-    (let-routes 1)
-    (context 2)))
 
 
 ;; Python
