@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# uuid: c3828397-9ecf-44d5-ba73-4936e8d357a1
+# contributor: Jonathan Ming <jming422@gmail.com>
+# name: Promise.all
+# key: pall
+# --
+
+await Promise.all(${1})
