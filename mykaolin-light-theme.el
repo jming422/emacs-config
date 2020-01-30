@@ -7,6 +7,7 @@
 
 (custom-theme-set-faces
  'mykaolin-light
+ '(aw-background-face ((t . (:weight normal))))
  '(highlight ((t (:background "LightSteelBlue1"))))
  '(mc/cursor-bar-face ((t (:background "LightBlue2" :height 1))))
  '(mode-line-inactive ((t :foreground "grey20" :background "LightSteelBlue2" :inverse-video nil)))

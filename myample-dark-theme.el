@@ -9,6 +9,7 @@
 
 (custom-theme-set-faces
  'myample-dark
+ '(aw-background-face ((t (:foreground "grey40"))))
  '(cua-global-mark-cursor-color "#2aa198")
  '(cua-normal-cursor-color "#839496")
  '(cua-overwrite-cursor-color "#b58900")
