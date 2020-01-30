@@ -761,10 +761,13 @@ If provided, FILE2 will be opened in the right-side buffer."
   (split-window-below)
   (enlarge-window 15)
   (other-window 2)
-  (magit-status))
+  (call-interactively #'magit-status))
 
-;; init-emacs
-(global-set-key (kbd "H-i e") (lambda () (interactive) (init-project "~/Documents/emacs-config/init.el" "~/.emacs.d/init.el")))
+(defun init-emacs ()
+  "Initialize my buffers to edit my Emacs config."
+  (interactive)
+  (init-project "~/.emacs.d/init.el" "~/.emacs.d/mykaolin-light-theme.el"))
+(global-set-key (kbd "H-i e") #'init-emacs)
 
 (defun init-dap ()
   "Initialize the window setup for DAP.
