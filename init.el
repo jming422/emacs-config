@@ -663,7 +663,7 @@
 (use-package rjsx-mode
   :custom (js-indent-level 2)
   :after prettier-js
-  :mode "\\.jsx?\\'"
+  :mode ("\\.jsx?\\'" "\\.ts\\'")
 ;;  :interpreter ("nodejs" "node")
   :bind (:map rjsx-mode-map
          ("M-i" . prettier-js)

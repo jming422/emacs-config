@@ -21,6 +21,7 @@
 	sp-kill-hybrid-sexp
 	sp-slurp-hybrid-sexp
 	upcase-char
+	yas-abort-snippet
 	))
 
 (setq mc/cmds-to-run-once
