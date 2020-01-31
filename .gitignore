@@ -54,12 +54,13 @@ flycheck_*.el
 /mysecrets.el
 /transient/
 /url/
+/request/
 /elpy/
 /git-lisp/
 /.extension/
-/.dap-breakpoints
-/.lsp-session*
-/forge-database.sqlite
-/projectile-bookmarks.eld
 /recentf
 /session.*
+/.lsp-session*
+/.dap-breakpoints
+/forge-database.sqlite
+/projectile-bookmarks.eld
