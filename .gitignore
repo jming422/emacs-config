@@ -61,3 +61,5 @@ flycheck_*.el
 /.lsp-session*
 /forge-database.sqlite
 /projectile-bookmarks.eld
+/recentf
+/session.*
