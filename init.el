@@ -932,7 +932,7 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
           ([?\C-s] . [?\C-f])))
   (require 'exwm-systemtray)
   (exwm-systemtray-enable)
-  (setq-default visual-bell t)
+  (setq-default visible-bell t)
   (exwm-enable))
 
 
