@@ -461,7 +461,7 @@
 	(expand-file-name "/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin/sourcekit-lsp")))
 
 (use-package lsp-ui
-  :hook lsp-mode
+  :hook (lsp-mode . lsp-ui-mode)
   :commands lsp-ui-mode
   :custom
   (lsp-ui-doc-enable nil)
@@ -932,6 +932,7 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
           ([?\C-s] . [?\C-f])))
   (require 'exwm-systemtray)
   (exwm-systemtray-enable)
+  (setq-default visual-bell t)
   (exwm-enable))
 
 
