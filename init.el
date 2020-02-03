@@ -773,9 +773,9 @@ If provided, FILE2 will be opened in the right-side buffer."
   "Initialize my buffers to my Rust learning projects."
   (interactive)
   (let ((proj-loc (if (eq system-type 'darwin)
-		      "~/Documents/training/rust/lists/src/"
-		    "~/Documents/rust-lists/src/")))
-    (init-project (concat proj-loc "lib.rs") (concat proj-loc "Cargo.toml"))))
+		      "~/Documents/training/rust/lists"
+		    "~/Documents/rust-lists")))
+    (init-project (concat proj-loc "/src/lib.rs") (concat proj-loc "/Cargo.toml"))))
 (global-set-key (kbd "H-i r") #'init-rust)
 
 (defun init-dap ()
