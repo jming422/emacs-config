@@ -769,6 +769,15 @@ If provided, FILE2 will be opened in the right-side buffer."
   (init-project "~/.emacs.d/init.el" "~/.emacs.d/mykaolin-light-theme.el"))
 (global-set-key (kbd "H-i e") #'init-emacs)
 
+(defun init-rust ()
+  "Initialize my buffers to my Rust learning projects."
+  (interactive)
+  (let ((proj-loc (if (eq system-type 'darwin)
+		      "~/Documents/training/rust/lists/src/"
+		    "~/Documents/rust-lists/src/")))
+    (init-project (concat proj-loc "lib.rs") (concat proj-loc "Cargo.toml"))))
+(global-set-key (kbd "H-i r") #'init-rust)
+
 (defun init-dap ()
   "Initialize the window setup for DAP.
 Expects the windows to be preconfigured as with `init-project'

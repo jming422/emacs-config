@@ -21,6 +21,7 @@
 	sp-kill-hybrid-sexp
 	sp-slurp-hybrid-sexp
 	upcase-char
+	yaml-electric-backspace
 	yas-abort-snippet
 	))
 
