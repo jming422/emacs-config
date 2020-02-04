@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# uuid: 9a7d419b-5dcb-4c42-9dd4-f8a69f143a48
+# contributor: Jonathan Ming <jming422@gmail.com>
+# name: impl<T> Trait for Type<T> { ... }
+# key: implgt
+# --
+impl<${1:T}> ${2:Trait} for ${3:Type}<$1> {
+     $0
+}
