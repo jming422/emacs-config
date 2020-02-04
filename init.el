@@ -753,6 +753,7 @@
 FILE represents the project root file to open.
 If provided, FILE2 will be opened in the right-side buffer."
   (interactive)
+  (delete-other-windows)
   (find-file file)
   (split-window-right)
   (other-window 1)
