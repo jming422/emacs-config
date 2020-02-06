@@ -72,7 +72,7 @@
 (global-set-key (kbd "s-%") #'query-replace-regexp)
 (global-set-key (kbd "M-j") (lambda () (interactive)
 			      (exchange-point-and-mark)
-			      (keyboard-quit)))
+			      (deactivate-mark)))
 (global-set-key (kbd "C-x C-p") #'list-processes)
 (defvar my-pgp-map (make-sparse-keymap))
 (bind-keys :map my-pgp-map
