@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
 	company-indent-or-complete-common
+	counsel-yank-pop
 	delete-horizontal-space
 	downcase-dwim
 	forward-sexp
@@ -22,6 +23,7 @@
 	sp-slurp-hybrid-sexp
 	upcase-char
 	yaml-electric-backspace
+	yaml-electric-dash-and-dot
 	yas-abort-snippet
 	))
 
