@@ -70,6 +70,7 @@
 (global-set-key (kbd "H-d") #'downcase-dwim)
 (global-set-key (kbd "s-s") #'sort-lines)
 (global-set-key (kbd "s-%") #'query-replace-regexp)
+(global-set-key (kbd "H-SPC") #'just-one-space)
 (global-set-key (kbd "M-j") (lambda () (interactive)
 			      (exchange-point-and-mark)
 			      (deactivate-mark)))
