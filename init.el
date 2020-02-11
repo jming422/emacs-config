@@ -749,10 +749,11 @@
   (interactive "nBy: ")
   (enlarge-window height))
 
-(defun init-project (file &optional file2)
+(defun init-project (file &optional file2 third-window-shrink)
   "Initialize my buffers for the project specified by FILE.
 FILE represents the project root file to open.
-If provided, FILE2 will be opened in the right-side buffer."
+If provided, FILE2 will be opened in the right-side buffer.
+If provided, THIRD-WINDOW-SHRINK can customize the amount by which the magit buffer is shrunk (defaults to 15)."
   (interactive)
   (delete-other-windows)
   (find-file file)
@@ -761,7 +762,7 @@ If provided, FILE2 will be opened in the right-side buffer."
   (when file2
     (find-file file2))
   (split-window-below)
-  (enlarge-window 15)
+  (enlarge-window (or third-window-shrink 15))
   (other-window 2)
   (call-interactively #'magit-status))
 
