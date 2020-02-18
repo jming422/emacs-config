@@ -58,6 +58,7 @@ flycheck_*.el
 /elpy/
 /git-lisp/
 /.extension/
+/image-dired/
 /recentf
 /session.*
 /.lsp-session*

@@ -345,6 +345,8 @@
 (use-package company-emoji
   :after company
   :config
+  (advice-add #'company-emoji-list-create :filter-return (lambda (l) (cons #(":green_circle:" 0 1 (:unicode "🟢")) l)))
+
   (add-to-list 'company-backends 'company-emoji))
 
 

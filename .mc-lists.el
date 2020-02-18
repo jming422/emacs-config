@@ -13,6 +13,8 @@
 	markdown-outdent-or-delete
 	org-self-insert-command
 	rjsx-delete-creates-full-tag
+	rjsx-electric-gt
+	rjsx-electric-lt
 	sp-backward-kill-sexp
 	sp-backward-sexp
 	sp-backward-up-sexp
@@ -20,6 +22,7 @@
 	sp-down-sexp
 	sp-forward-sexp
 	sp-kill-hybrid-sexp
+	sp-remove-active-pair-overlay
 	sp-slurp-hybrid-sexp
 	upcase-char
 	yaml-electric-backspace
