@@ -783,7 +783,7 @@ If provided, THIRD-WINDOW-SHRINK can customize the amount by which the magit buf
   (let ((proj-loc (if (eq system-type 'darwin)
 		      "~/Documents/training/rust/hello"
 		    "~/Documents/rust/hello")))
-    (init-project (concat proj-loc "/src/main.rs") (concat proj-loc "/Cargo.toml"))))
+    (init-project (concat proj-loc "/src/lib.rs") (concat proj-loc "/Cargo.toml"))))
 (global-set-key (kbd "H-i r") #'init-rust)
 
 (defun init-dap ()

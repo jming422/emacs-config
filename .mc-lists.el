@@ -10,6 +10,8 @@
 	forward-sexp
 	kill-region
 	kill-sexp
+	magit-copy-buffer-revision
+	magit-previous-line
 	markdown-outdent-or-delete
 	org-self-insert-command
 	rjsx-delete-creates-full-tag
