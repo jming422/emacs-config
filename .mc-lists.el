@@ -13,6 +13,7 @@
 	magit-copy-buffer-revision
 	magit-previous-line
 	markdown-outdent-or-delete
+	mc-place-stop
 	org-self-insert-command
 	rjsx-delete-creates-full-tag
 	rjsx-electric-gt
