@@ -291,7 +291,8 @@
 ;; Verb & HTTP request helpers
 (use-package verb
   :after org
-  :config (define-key org-mode-map (kbd "C-c C-r") verb-mode-prefix-map))
+;;  :config (define-key org-mode-map (kbd "C-c C-r") verb-mode-prefix-map)
+  )
 
 
 ;; Smartparens
