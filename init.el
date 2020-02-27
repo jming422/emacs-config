@@ -168,7 +168,7 @@
   :hook prog-mode)
 
 (use-package rainbow-mode
-  :hook (prog-mode text-mode))
+  :commands rainbow-mode)
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
@@ -485,7 +485,7 @@
   :custom
   (lsp-ui-doc-enable nil)
   (lsp-ui-flycheck-enable t)
-  (lsp-ui-flycheck-live-reporting nil)
+  (lsp-ui-flycheck-live-reporting nil) ;; there's a problem with this w.r.t. lsp-flycheck-live-reporting aliasing
   (lsp-ui-peek-enable nil)
   (lsp-ui-sideline-enable t)
   (lsp-ui-sideline-ignore-duplicate t)
