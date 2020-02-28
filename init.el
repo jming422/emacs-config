@@ -12,7 +12,7 @@
    '("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(package-selected-packages
-   '(all-the-icons-ivy-rich ivy-rich package-lint fira-code-mode exwm use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
+   '(all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint fira-code-mode exwm use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1"))
 (custom-set-faces
@@ -182,6 +182,11 @@
 (use-package fireplace
   :commands fireplace)
 
+(use-package all-the-icons)
+
+(use-package all-the-icons-dired
+  :after all-the-icons
+  :hook (dired-mode . all-the-icons-dired-mode))
 
 ;; Binding and app-control related packages
 (use-package which-key
@@ -382,7 +387,7 @@
   (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
 
 (use-package all-the-icons-ivy-rich
-  :after ivy-rich
+  :after (all-the-icons ivy-rich)
   :demand t
   :config (all-the-icons-ivy-rich-mode 1))
 
