@@ -797,9 +797,7 @@ If provided, THIRD-WINDOW-SHRINK can customize the amount by which the magit buf
 (defun init-rust ()
   "Initialize my buffers to my Rust learning projects."
   (interactive)
-  (let ((proj-loc (if (eq system-type 'darwin)
-		      "~/Documents/training/rust/hello"
-		    "~/Documents/rust/hello")))
+  (let ((proj-loc "~/Documents/zust"))
     (init-project (concat proj-loc "/src/lib.rs") (concat proj-loc "/Cargo.toml"))))
 (global-set-key (kbd "H-i r") #'init-rust)
 
