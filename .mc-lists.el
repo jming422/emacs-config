@@ -36,6 +36,8 @@
 (setq mc/cmds-to-run-once
       '(
 	counsel-M-x
+	counsel-grep-or-swiper
 	mc-place
+	save-some-buffers
 	sp-rewrap-sexp
 	))
