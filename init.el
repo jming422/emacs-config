@@ -857,10 +857,16 @@ with focus residing in the leftmost window."
                     (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
                     (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
 
-(add-hook 'ediff-keymap-setup-hook (lambda () (define-key ediff-mode-map "d" 'ediff-copy-both-to-C)))
+(add-hook 'ediff-keymap-setup-hook (lambda () (define-key ediff-mode-map "d" #'ediff-copy-both-to-C)))
 (add-hook 'ediff-before-setup-hook #'eyebrowse-create-window-config)
 (add-hook 'ediff-suspend-hook #'eyebrowse-close-window-config)
 (add-hook 'ediff-quit-hook #'eyebrowse-close-window-config)
+
+
+;; term / ansi-term customization
+(bind-keys :map term-raw-escape-map
+	   ("M-o" . ace-window)
+	   ("s-o" . ace-swap-window))
 
 
 ;; Other custom functions
