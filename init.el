@@ -465,7 +465,8 @@
   (lsp-clients-go-format-tool "gofmt")
   (lsp-enable-snippet nil)
   (lsp-keep-workspace-alive nil)
-  (lsp-prefer-flymake nil))
+  (lsp-prefer-flymake nil)
+  (lsp-flycheck-live-reporting nil))
 
 (use-package company-lsp
   :after (lsp-mode company)
@@ -489,7 +490,6 @@
   :custom
   (lsp-ui-doc-enable nil)
   (lsp-ui-flycheck-enable t)
-  (lsp-ui-flycheck-live-reporting nil) ;; there's a problem with this w.r.t. lsp-flycheck-live-reporting aliasing
   (lsp-ui-peek-enable nil)
   (lsp-ui-sideline-enable t)
   (lsp-ui-sideline-ignore-duplicate t)
