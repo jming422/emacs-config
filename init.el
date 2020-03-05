@@ -85,7 +85,7 @@
 
 
 ;; Save and restore desktop configuration on emacs quit/launch
-;;(desktop-save-mode t)
+;;(desktop-save-mode)
 ;; Turns out I didn't this all that helpful, and it slowed down init a good bit.
 
 
@@ -322,7 +322,7 @@
 	 ("M-i" . sp-indent-defun))
   :config
   (require 'smartparens-config)
-  (smartparens-global-mode t)
+  (smartparens-global-mode)
 ;;  (sp-local-pair 'web-mode "{" nil :actions '(:rem insert))
   )
 
@@ -341,7 +341,7 @@
   :bind ("TAB" . company-indent-or-complete-common)
   :config
   (setq company-tooltip-align-annotations t)
-  (global-company-mode t))
+  (global-company-mode))
 
 (use-package company-quickhelp
   :after company
@@ -383,20 +383,20 @@
   :after ivy
   :demand t
   :config
-  (ivy-rich-mode 1)
+  (ivy-rich-mode)
   (setcdr (assq t ivy-format-functions-alist) #'ivy-format-function-line))
 
 (use-package all-the-icons-ivy-rich
   :after (all-the-icons ivy-rich)
   :demand t
-  :config (all-the-icons-ivy-rich-mode 1))
+  :config (all-the-icons-ivy-rich-mode))
 
 
 ;; Projectile
 (use-package projectile
   :bind ("s-f" . projectile-commander)
   :config
-  (projectile-mode 1)
+  (projectile-mode)
   (setq projectile-completion-system 'ivy)
   (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml")
   (add-to-list 'projectile-project-root-files-bottom-up "BUILD"))
@@ -414,7 +414,7 @@
   :custom
   (git-gutter:ask-p nil)
   :config
-  (global-git-gutter-mode +1)
+  (global-git-gutter-mode)
   (defvar git-gutter-map (make-sparse-keymap))
   (defvar git-gutter-stop (lambda ()))
   (bind-keys :map git-gutter-map
