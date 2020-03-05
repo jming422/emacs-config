@@ -103,15 +103,15 @@
   ;; therefore I'm just disabling super-save for now until lsp-mode/lv/super-save work out their problems
   ;; See also https://github.com/emacs-lsp/lsp-mode/issues/1322
   :config
-  (super-save-mode t))
+  (super-save-mode))
 
 
 ;; Asthetic alterations & theming
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
-(global-hl-line-mode t)
-(show-paren-mode t)
+(show-paren-mode)
+(blink-cursor-mode)
 (column-number-mode)
 (global-eldoc-mode)
 (add-to-list 'default-frame-alist
