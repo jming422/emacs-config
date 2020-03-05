@@ -14,6 +14,8 @@
 	magit-previous-line
 	markdown-outdent-or-delete
 	mc-place-stop
+	org-cycle
+	org-emphasize
 	org-self-insert-command
 	rjsx-delete-creates-full-tag
 	rjsx-electric-gt

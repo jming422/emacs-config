@@ -12,7 +12,7 @@
    '("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(package-selected-packages
-   '(vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint fira-code-mode exwm use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
+   '(eterm-256color tide typescript-mode vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint fira-code-mode exwm use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1"))
 (custom-set-faces
@@ -647,6 +647,12 @@
 
 
 ;; Web modes
+(use-package prettier-js
+  :demand t
+  :ensure-system-package (prettier . "npm i -g prettier")
+;;  :commands (prettier-js prettier-js-mode)
+  :hook ((rjsx-mode yaml-mode css-mode json-mode typescript-mode) . prettier-js-mode))
+
 (use-package css-mode
   :after prettier-js
   :bind (:map css-mode-map
@@ -655,13 +661,19 @@
 
 (use-package web-mode
   :after prettier-js
-  :mode ("\\.ejs\\'" "\\.erb\\'" "\\.mustache\\'")
+  :mode ("\\.ejs\\'" "\\.erb\\'" "\\.mustache\\'" "\\.tsx\\'")
   :bind (:map web-mode-map
-	 ("M-i" . prettier-js))
+	      ("M-i" . prettier-js))
+  :hook (web-mode . (lambda ()
+		      (when (string-equal "tsx" (file-name-extension buffer-file-name))
+			(prettier-js-mode)
+			(tide-setup)
+			(tide-hl-identifier-mode))))
   :config
   (setq web-mode-markup-indent-offset 2)
   (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2))
+  (setq web-mode-code-indent-offset 2)
+  (flycheck-add-mode 'typescript-tslint 'web-mode))
 
 (use-package jade-mode
   :mode ("\\.jade\\'" "\\.pug\\'"))
@@ -670,8 +682,8 @@
   :mode ("\\.\\php\\'" "\\.\\phtml\\'"))
 
 (use-package company-php
-  :after (:any php-mode web-mode)
-  :hook (php-mode web-mode))
+  :after php-mode
+  :hook php-mode)
 
 (use-package ruby-mode
   :ensure nil
@@ -686,7 +698,7 @@
 (use-package rjsx-mode
   :custom (js-indent-level 2)
   :after prettier-js
-  :mode ("\\.jsx?\\'" "\\.ts\\'")
+  :mode ("\\.jsx?\\'")
 ;;  :interpreter ("nodejs" "node")
   :bind (:map rjsx-mode-map
          ("M-i" . prettier-js)
@@ -701,12 +713,6 @@
   :bind (:map json-mode-map
 	 ("M-i" . prettier-js)))
 
-(use-package prettier-js
-  :demand t
-  :ensure-system-package (prettier . "npm i -g prettier")
-;;  :commands (prettier-js prettier-js-mode)
-  :hook ((rjsx-mode yaml-mode css-mode json-mode web-mode) . prettier-js-mode))
-
 (use-package nodejs-repl
   :after rjsx-mode
   :commands nodejs-repl
@@ -715,6 +721,19 @@
 	      ("C-x C-e" . nodejs-repl-send-last-expression)
 	      ("C-x C-r" . nodejs-repl-send-region)
 	      ("C-c C-k" . nodejs-repl-load-file)))
+
+
+;; Typescript / Tide / TSX
+(use-package typescript-mode
+  :after prettier-js
+  :bind (:map typescript-mode-map
+	      ("M-i" . prettier-js))
+  :custom (typescript-indent-level 2))
+
+(use-package tide
+  :after (typescript-mode company flycheck)
+  :hook ((typescript-mode . tide-setup)
+         (typescript-mode . tide-hl-identifier-mode)))
 
 
 ;; YAML
@@ -867,7 +886,11 @@ with focus residing in the leftmost window."
 (use-package vterm
   :commands vterm
   :bind (:map vterm-mode-map
-	      ("C-k" . vterm-send-C-k)))
+	      ("C-k" . vterm-send-C-k))
+  :custom (vterm-term-environment-variable "eterm-256color"))
+
+(use-package eterm-256color
+  :hook (vterm-mode . eterm-256color-mode))
 
 
 ;; Other custom functions
