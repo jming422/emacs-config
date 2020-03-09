@@ -17,6 +17,8 @@
 	org-cycle
 	org-emphasize
 	org-self-insert-command
+	python-indent-dedent-line
+	python-nav-forward-sexp-safe
 	rjsx-delete-creates-full-tag
 	rjsx-electric-gt
 	rjsx-electric-lt
