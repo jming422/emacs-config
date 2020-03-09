@@ -76,13 +76,6 @@
 			      (exchange-point-and-mark)
 			      (deactivate-mark)))
 (global-set-key (kbd "C-x C-p") #'list-processes)
-(defvar my-pgp-map (make-sparse-keymap))
-(bind-keys :map my-pgp-map
-	   ("e" . epa-encrypt-region)
-	   ("d" . epa-decrypt-region)
-	   ("s" . epa-sign-region)
-	   ("v" . epa-verify-region))
-(global-set-key (kbd "H-p") my-pgp-map)
 
 
 ;; Save and restore desktop configuration on emacs quit/launch
