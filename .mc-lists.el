@@ -39,6 +39,7 @@
 
 (setq mc/cmds-to-run-once
       '(
+	ace-swap-window
 	counsel-M-x
 	counsel-grep-or-swiper
 	mc-place
