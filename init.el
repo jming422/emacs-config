@@ -59,7 +59,7 @@
 
 
 ;; Load non-public setings/configs
-(setq auth-sources '("~/.authinfo.gpg" "~/.authinfo" "~/.netrc"))
+(setq auth-sources '("~/.authinfo.gpg"))
 (load "~/.emacs.d/mysecrets.el" t)
 
 
@@ -76,11 +76,6 @@
 			      (exchange-point-and-mark)
 			      (deactivate-mark)))
 (global-set-key (kbd "C-x C-p") #'list-processes)
-
-
-;; Save and restore desktop configuration on emacs quit/launch
-;;(desktop-save-mode)
-;; Turns out I didn't this all that helpful, and it slowed down init a good bit.
 
 
 ;; Super Save, ON! ...or not.. 😬
@@ -110,6 +105,7 @@
 (global-eldoc-mode)
 (add-to-list 'default-frame-alist
 	     '(font . "Fira Code-12"))
+
 
 (use-package ample-theme
   :demand t
