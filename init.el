@@ -165,9 +165,8 @@
 
 (use-package highlight-indentation
   :after smart-mode-line
-  :hook (yaml-mode . highlight-indentation-mode)
-  :config
-  (highlight-indentation-current-column-mode))
+  :hook ((yaml-mode . highlight-indentation-mode)
+	 (yaml-mode . highlight-indentation-current-column-mode)))
 
 (use-package fireplace
   :commands fireplace)
@@ -180,6 +179,7 @@
 
 ;; Binding and app-control related packages
 (use-package which-key
+  :demand t
   :config
   (which-key-mode))
 
@@ -379,7 +379,8 @@
 (use-package all-the-icons-ivy-rich
   :after (all-the-icons ivy-rich)
   :demand t
-  :config (all-the-icons-ivy-rich-mode))
+  :config
+  (all-the-icons-ivy-rich-mode))
 
 
 ;; Projectile
@@ -844,7 +845,8 @@ with focus residing in the leftmost window."
   :bind (("H-1" . eyebrowse-switch-to-window-config-1)
 	 ("H-2" . eyebrowse-switch-to-window-config-2)
 	 ("H-3" . eyebrowse-switch-to-window-config-3))
-  :config (eyebrowse-mode t))
+  :config
+  (eyebrowse-mode t))
 
 (let (quit)
   (defvar my-window-map (make-sparse-keymap))
