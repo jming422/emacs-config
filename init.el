@@ -538,6 +538,14 @@
 
 
 ;; Python
+(defun pyvenv-toggle ()
+  "Toggle pyvenv on or off."
+  (interactive)
+  (let ((f (if pyvenv-virtual-env
+	       #'pyvenv-deactivate
+	     #'pyvenv-activate)))
+    (call-interactively f)))
+
 (use-package elpy
   :defer t
   :after flycheck
@@ -548,7 +556,8 @@
 	      ("C-M-d" . elpy-nav-forward-indent)
 	      ("C-M-u" . elpy-nav-backward-indent)
 	      ("M-i" . elpy-format-code)
-	      ("C-c M-j" . elpy-shell-switch-to-shell))
+	      ("C-c M-j" . elpy-shell-switch-to-shell)
+	      ("C-c C-v" . pyvenv-toggle))
   :init
   (advice-add 'python-mode :before 'elpy-enable)
   :config
