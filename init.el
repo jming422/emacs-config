@@ -934,6 +934,7 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
   (setq mac-option-modifier 'super)
   (setq mac-right-control-modifier 'hyper))
 
+
 ;; Linux customizations
 (use-package exwm
   :if (eq system-type 'gnu/linux)
@@ -998,7 +999,8 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
   (require 'exwm-systemtray)
   (exwm-systemtray-enable)
   (setq-default visible-bell t)
-  (exwm-enable))
+  (exwm-enable)
+  (call-process "xmodmap" nil (get-buffer-create "wm") nil (expand-file-name "~/xmodmap-caps-ctrl")))
 
 
 ;; init.el ends here
