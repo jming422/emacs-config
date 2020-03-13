@@ -18,7 +18,7 @@
    '("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(package-selected-packages
-   '(all-the-icons eterm-256color tide typescript-mode vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint fira-code-mode exwm use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
+   '(solaire-mode doom-modeline doom-themes all-the-icons eterm-256color tide typescript-mode vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint fira-code-mode exwm use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
  '(pos-tip-background-color "#073642")
  '(pos-tip-foreground-color "#93a1a1")
  '(safe-local-variable-values '((encoding . utf-8))))
@@ -113,50 +113,32 @@
 (add-to-list 'default-frame-alist
 	     '(font . "Fira Code-12"))
 
-
-(use-package ample-theme
-  :demand t
+(use-package doom-themes
   :config
-  (load-theme 'ample t t)
-  (load-theme 'myample-dark t t))
-
-(use-package kaolin-themes
-  :demand t
-  :config
-  (setq kaolin-themes-italic-comments t)
-  (setq kaolin-themes-distinct-fringe t)
-  (setq kaolin-themes-distinct-company-scrollbar t)
-  (load-theme 'kaolin-breeze t t)
-  (load-theme 'mykaolin-light t t))
-
-(use-package smart-mode-line
-  :after (ample-theme kaolin-themes)
-  :demand t
-  :config
+  (load-theme 'doom-palenight t t)
+  (load-theme 'doom-tomorrow-day t t)
   (defun godark ()
     (interactive)
-    (disable-theme 'mykaolin-light)
-    (disable-theme 'kaolin-breeze)
-    (enable-theme 'ample)
-    (enable-theme 'myample-dark)
-    (sml/setup))
+    (disable-theme 'doom-tomorrow-day)
+    (enable-theme 'doom-palenight))
   (defun golight ()
     (interactive)
-    (disable-theme 'myample-dark)
-    (disable-theme 'ample)
-    (enable-theme 'kaolin-breeze)
-    (enable-theme 'mykaolin-light)
-    (sml/setup))
-  (setq rm-blacklist (format "^ \\(%s\\)$"
-			     (mapconcat #'identity
-					'("Git.*" "Projectile.*" "ARev" "company" "h-i-g" "counsel" "ivy" "yas" "SP" "WK" "super-save" "ElDoc" "Rbow" "Undo-Tree" ",")
-					"\\|")))
-  (setup-sml-secrets)
-  ;; The below sets the default to light, but iTerm's hook for switching between dark/light
-  ;; will also switch Emacs themes if the Emacs server is running!
-  ;; FIXME: Need to call both in this order because... of a glitch somewhere... I guess
-  (godark)
+    (disable-theme 'doom-palenight) 
+    (enable-theme 'doom-tomorrow-day))
   (golight))
+
+(use-package doom-modeline
+  :after doom-themes
+  :init (doom-modeline-mode)
+  :custom (doom-modeline-icon . t))
+
+(use-package solaire-mode
+  :after (doom-themes doom-modeline)
+  :hook (((change-major-mode after-revert ediff-prepare-buffer) . turn-on-solaire-mode)
+	 (minibuffer-setup . solaire-mode-in-minibuffer))
+  :config
+  (solaire-global-mode)
+  (solaire-mode-swap-bg))
 
 (use-package fira-code-mode
   :ensure nil
@@ -171,7 +153,6 @@
   :hook (prog-mode . rainbow-delimiters-mode))
 
 (use-package highlight-indentation
-  :after smart-mode-line
   :hook ((yaml-mode . highlight-indentation-mode)
 	 (yaml-mode . highlight-indentation-current-column-mode)))
 
