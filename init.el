@@ -895,7 +895,7 @@ with focus residing in the leftmost window."
 (add-hook 'ediff-before-setup-hook #'eyebrowse-create-window-config)
 ;; (add-hook 'ediff-suspend-hook #'eyebrowse-close-window-config)
 ;; (add-hook 'ediff-quit-hook #'eyebrowse-close-window-config)
-(add-hook 'ediff-cleanup-hook #'eyebrowse-close-window-config)
+;; (add-hook 'ediff-cleanup-hook #'eyebrowse-close-window-config)
 
 
 ;; Other custom functions
