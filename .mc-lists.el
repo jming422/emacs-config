@@ -15,6 +15,7 @@
 	markdown-outdent-or-delete
 	mc-place-stop
 	org-cycle
+	org-delete-char
 	org-emphasize
 	org-self-insert-command
 	python-indent-dedent-line
