@@ -120,6 +120,12 @@
   (load-theme 'doom-nova t t)
   (load-theme 'doom-one-light t)
 
+  (defun doom-nova-customizations ()
+    "Apply custom edits to the doom-nova theme.  Must be called after the theme has been enabled."
+    (doom-themes-set-faces
+      'doom-nova
+      '(mode-line-inactive :background (doom-lighten (doom-color 'modeline-bg-alt) 0.05) :foreground (doom-lighten (doom-color 'modeline-fg-alt) 0.05))))
+
   (defun doom-one-light-customizations ()
     "Apply custom edits to the doom-one-light theme.  Must be called after the theme has been enabled."
     (doom-themes-set-faces
@@ -131,6 +137,7 @@
       '(company-tooltip :inherit 'tooltip)
       '(markdown-code-face :background (doom-lighten (doom-color 'cyan) 0.95) :extend t)))
 
+  (doom-nova-customizations)
   (doom-one-light-customizations)
   (enable-theme 'doom-one-light)
 
