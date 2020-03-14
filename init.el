@@ -15,7 +15,7 @@
  '(cursor-type 'bar)
  '(custom-enabled-themes nil)
  '(custom-safe-themes
-   '("c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
+   '("99ea831ca79a916f1bd789de366b639d09811501e8c092c85b2cb7d697777f93" "d5f8099d98174116cba9912fe2a0c3196a7cd405d12fa6b9375c55fc510988b5" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(package-selected-packages
    '(doom-modeline doom-themes all-the-icons eterm-256color tide typescript-mode vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint fira-code-mode exwm use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
@@ -27,7 +27,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ '(aw-leading-char-face ((t :height 1.1 :weight bold :foreground "#e361c3")))
+ '(lsp-ui-sideline-global ((t nil))))
 
 ;; Un-disabled builtins
 (put 'upcase-region 'disabled nil)
@@ -113,10 +114,24 @@
 (add-to-list 'default-frame-alist
 	     '(font . "Fira Code-12"))
 
+(defun doom-one-light-customizations ()
+  "Apply custom edits to the doom-one-light theme.  Must be called after the theme has been enabled."
+  (doom-themes-set-faces
+   'doom-one-light
+   '(swiper-line-face :background (doom-lighten (doom-color 'dark-blue) 0.4) :foreground 'unspecified)
+   '(mc/cursor-bar-face :height 1 :background (doom-lighten (doom-color 'dark-blue) 0.3) :foreground (doom-darken (doom-color 'blue) 0.2))
+   '(highlight-indentation-face :background (doom-color 'base0))
+   '(highlight-indentation-current-column-face :background (doom-color 'base2))
+   '(company-tooltip :inherit 'tooltip)))
+
 (use-package doom-themes
+  :demand t
   :config
-  (load-theme 'doom-nova nil t)
-  (load-theme 'doom-one-light nil t)
+  (load-theme 'doom-nova t t)
+  (load-theme 'doom-one-light t t)
+  (doom-one-light-customizations)
+  (enable-theme 'doom-one-light)
+
   (defun godark ()
     (interactive)
     (disable-theme 'doom-one-light)
@@ -124,8 +139,7 @@
   (defun golight ()
     (interactive)
     (disable-theme 'doom-nova)
-    (enable-theme 'doom-one-light))
-  (golight))
+    (enable-theme 'doom-one-light)))
 
 (use-package doom-modeline
   :after doom-themes
@@ -317,7 +331,10 @@
   (global-company-mode))
 
 (use-package company-quickhelp
-  :after company
+  :after (company doom-themes)
+  :custom
+  (company-quickhelp-color-foreground (doom-color 'fg))
+  (company-quickhelp-color-background (doom-color 'bg))
   :config
   (company-quickhelp-mode))
 
@@ -797,7 +814,7 @@ If provided, THIRD-WINDOW-SHRINK can customize the amount by which the magit buf
 (defun init-emacs ()
   "Initialize my buffers to edit my Emacs config."
   (interactive)
-  (init-project "~/.emacs.d/init.el" "~/.emacs.d/mykaolin-light-theme.el"))
+  (init-project "~/.emacs.d/init.el" "~/.emacs.d/git-lisp/fira-code-mode/fira-code-mode.el"))
 (global-set-key (kbd "H-i e") #'init-emacs)
 
 (defun init-rust ()
