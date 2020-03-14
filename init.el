@@ -114,21 +114,23 @@
 (add-to-list 'default-frame-alist
 	     '(font . "Fira Code-12"))
 
-(defun doom-one-light-customizations ()
-  "Apply custom edits to the doom-one-light theme.  Must be called after the theme has been enabled."
-  (doom-themes-set-faces
-   'doom-one-light
-   '(swiper-line-face :background (doom-lighten (doom-color 'dark-blue) 0.4) :foreground 'unspecified)
-   '(mc/cursor-bar-face :height 1 :background (doom-lighten (doom-color 'dark-blue) 0.3) :foreground (doom-darken (doom-color 'blue) 0.2))
-   '(highlight-indentation-face :background (doom-color 'base0))
-   '(highlight-indentation-current-column-face :background (doom-color 'base2))
-   '(company-tooltip :inherit 'tooltip)))
-
 (use-package doom-themes
   :demand t
   :config
   (load-theme 'doom-nova t t)
-  (load-theme 'doom-one-light t t)
+  (load-theme 'doom-one-light t)
+
+  (defun doom-one-light-customizations ()
+    "Apply custom edits to the doom-one-light theme.  Must be called after the theme has been enabled."
+    (doom-themes-set-faces
+      'doom-one-light
+      '(swiper-line-face :background (doom-lighten (doom-color 'dark-blue) 0.4) :foreground 'unspecified)
+      '(mc/cursor-bar-face :height 1 :background (doom-lighten (doom-color 'dark-blue) 0.3) :foreground (doom-darken (doom-color 'blue) 0.2))
+      '(highlight-indentation-face :background (doom-color 'base0))
+      '(highlight-indentation-current-column-face :background (doom-color 'base2))
+      '(company-tooltip :inherit 'tooltip)
+      '(markdown-code-face :background (doom-lighten (doom-color 'cyan) 0.95) :extend t)))
+
   (doom-one-light-customizations)
   (enable-theme 'doom-one-light)
 
