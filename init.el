@@ -117,17 +117,20 @@
 (use-package doom-themes
   :demand t
   :config
-  (load-theme 'doom-nova t t)
-  (load-theme 'doom-one-light t)
-
-  (defun doom-nova-customizations ()
-    "Apply custom edits to the doom-nova theme.  Must be called after the theme has been enabled."
+  (defun godark ()
+    (interactive)
+    (disable-theme 'doom-one-light)
+    (load-theme 'doom-nova t)
     (doom-themes-set-faces
       'doom-nova
-      '(mode-line-inactive :background (doom-lighten (doom-color 'modeline-bg-alt) 0.05) :foreground (doom-lighten (doom-color 'modeline-fg-alt) 0.05))))
+      '(mc/cursor-bar-face :height 1 :background (doom-darken (doom-color 'dark-cyan) 0.3) :foreground (doom-lighten (doom-color 'cyan) 0.2))
+      '(mode-line-inactive :background (doom-lighten (doom-color 'modeline-bg-alt) 0.05) :foreground (doom-lighten (doom-color 'modeline-fg-alt) 0.05)))
+    (enable-theme 'doom-nova))
 
-  (defun doom-one-light-customizations ()
-    "Apply custom edits to the doom-one-light theme.  Must be called after the theme has been enabled."
+  (defun golight ()
+    (interactive)
+    (disable-theme 'doom-nova)
+    (load-theme 'doom-one-light t)
     (doom-themes-set-faces
       'doom-one-light
       '(swiper-line-face :background (doom-lighten (doom-color 'dark-blue) 0.4) :foreground 'unspecified)
@@ -135,20 +138,10 @@
       '(highlight-indentation-face :background (doom-color 'base0))
       '(highlight-indentation-current-column-face :background (doom-color 'base2))
       '(company-tooltip :inherit 'tooltip)
-      '(markdown-code-face :background (doom-lighten (doom-color 'cyan) 0.95) :extend t)))
+      '(markdown-code-face :background (doom-lighten (doom-color 'cyan) 0.95) :extend t))
+    (enable-theme 'doom-one-light))
 
-  (doom-nova-customizations)
-  (doom-one-light-customizations)
-  (enable-theme 'doom-one-light)
-
-  (defun godark ()
-    (interactive)
-    (disable-theme 'doom-one-light)
-    (enable-theme 'doom-nova))
-  (defun golight ()
-    (interactive)
-    (disable-theme 'doom-nova)
-    (enable-theme 'doom-one-light)))
+  (golight))
 
 (use-package doom-modeline
   :after doom-themes
