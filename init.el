@@ -232,6 +232,7 @@
 
 (defun mc-place ()
   "Function for the mc hercules entry point."
+  (interactive)
   (message "Entering multiple-cursors placement state"))
 
 (use-package multiple-cursors
