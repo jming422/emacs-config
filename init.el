@@ -71,6 +71,7 @@
 
 
 ;; Generic global keybindings
+(global-set-key (kbd "C-§") #'ignore)
 (global-set-key (kbd "<escape>") #'keyboard-quit)
 (global-set-key (kbd "M-p") #'backward-paragraph)
 (global-set-key (kbd "M-n") #'forward-paragraph)
