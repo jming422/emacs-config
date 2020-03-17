@@ -72,6 +72,7 @@
 
 ;; Generic global keybindings
 (global-set-key (kbd "C-§") #'ignore)
+(global-set-key (kbd "C-`") #'ignore)
 (global-set-key (kbd "<escape>") #'keyboard-quit)
 (global-set-key (kbd "M-p") #'backward-paragraph)
 (global-set-key (kbd "M-n") #'forward-paragraph)
@@ -152,7 +153,9 @@
 (use-package doom-modeline
   :after doom-themes
   :init (doom-modeline-mode)
-  :custom (doom-modeline-icon t))
+  :custom
+  (doom-modeline-icon t)
+  (doom-modeline-env-enable-python nil))
 
 (use-package fira-code-mode
   :custom (fira-code-mode-disabled-ligatures '("www" "[]" "#{" "#(" "#_" "#_(" "x"))
