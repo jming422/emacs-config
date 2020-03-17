@@ -129,7 +129,8 @@
     (doom-themes-set-faces
       'doom-nova
       '(mc/cursor-bar-face :height 1 :background (doom-darken (doom-color 'dark-cyan) 0.3) :foreground (doom-lighten (doom-color 'cyan) 0.2))
-      '(mode-line-inactive :background (doom-lighten (doom-color 'modeline-bg-alt) 0.05) :foreground (doom-lighten (doom-color 'modeline-fg-alt) 0.05)))
+      '(mode-line-inactive :background (doom-lighten (doom-color 'modeline-bg-alt) 0.05) :foreground (doom-lighten (doom-color 'modeline-fg-alt) 0.05))
+      '(sp-pair-overlay-face :background (doom-darken (doom-color 'dark-cyan) 0.15)))
     (enable-theme 'doom-nova))
 
   (defun golight ()
