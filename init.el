@@ -115,6 +115,10 @@
 (add-to-list 'default-frame-alist
 	     '(font . "Fira Code-12"))
 
+(customize-set-variable 'display-time-default-load-average nil)
+(customize-set-variable 'display-time-day-and-date t)
+(display-time)
+
 (use-package doom-themes
   :demand t
   :config
@@ -195,7 +199,7 @@
   :load-path "git-lisp/spotify.el/"
   :custom
   (spotify-transport (if (eq system-type 'darwin) 'apple 'connect))
-  (spotify-player-status-format "♪%p♪")
+  (spotify-player-status-format "♪%p♪ ")
   (spotify-player-status-playing-text "▶")
   (spotify-player-status-paused-text "▌▌")
   (spotify-player-status-stopped-text "■")
