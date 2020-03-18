@@ -155,7 +155,8 @@
   :init (doom-modeline-mode)
   :custom
   (doom-modeline-icon t)
-  (doom-modeline-env-enable-python nil))
+  (doom-modeline-env-enable-python nil)
+  (doom-modeline-buffer-file-name-style 'truncate-with-project))
 
 (use-package fira-code-mode
   ;; Requires installing Fira Code Symbol font first
