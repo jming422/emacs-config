@@ -158,6 +158,7 @@
   (doom-modeline-env-enable-python nil))
 
 (use-package fira-code-mode
+  ;; Requires installing Fira Code Symbol font first
   :custom (fira-code-mode-disabled-ligatures '("www" "[]" "#{" "#(" "#_" "#_(" "x"))
   :hook prog-mode)
 
@@ -175,6 +176,7 @@
   :commands fireplace)
 
 (use-package all-the-icons)
+;; After install, run M-x all-the-icons-install-fonts
 
 (use-package all-the-icons-dired
   :after all-the-icons
@@ -770,15 +772,10 @@
   :bind (:map sh-mode-map
 	 ("M-." . lsp-goto-implementation)))
 
-(setq explicit-shell-file-name "bash")
-(add-hook 'shell-mode-hook (lambda ()
-			     (dirtrack-mode)
-			     ;; Teach *shell* how to tell what directory we're in by reading the prompt
-			     (setq dirtrack-list '("^[0-9:]\\{5\\} \\(.+?\\) \\$ " 1))))
-
 
 ;; vterm
 (use-package vterm
+  ;; If on macOS: brew install the following: libvterm, libtool
   :commands vterm
   :bind (:map vterm-mode-map
 	      ("C-k" . vterm-send-C-k))
