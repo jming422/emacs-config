@@ -532,11 +532,11 @@
 	       ("q" . quit)
 	       ("r" . dap-restart-frame)
 	       ("s" . dap-switch-stack-frame))
-  (hercules-def
-   :show-funs '(dap-debug dap-debug-last my-dap-prefix)
-   :hide-funs '(dap-disconnect quit dap-eval dap-switch-stack-frame)
-   :keymap 'my-dap-map)
-  (global-set-key (kbd "H-b") #'my-dap-prefix)))
+    (hercules-def
+     :show-funs '(dap-debug dap-debug-last my-dap-prefix)
+     :hide-funs '(dap-disconnect quit dap-eval dap-switch-stack-frame)
+     :keymap 'my-dap-map)
+    (global-set-key (kbd "H-b") #'my-dap-prefix)))
 
 
 ;; Clojure & Cider

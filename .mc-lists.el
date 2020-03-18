@@ -44,6 +44,7 @@
 	counsel-M-x
 	counsel-grep-or-swiper
 	mc-place
+	prettier-js
 	quit
 	save-some-buffers
 	sp-rewrap-sexp
