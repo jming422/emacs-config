@@ -933,7 +933,9 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
   ;; Mac modifier key rebindings
   (setq mac-command-modifier 'meta)
   (setq mac-option-modifier 'super)
-  (setq mac-right-control-modifier 'hyper))
+  (setq mac-right-control-modifier 'hyper)
+  (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
+  (add-to-list 'default-frame-alist '(ns-appearance . light)))
 
 
 ;; Linux customizations
