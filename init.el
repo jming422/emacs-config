@@ -338,6 +338,7 @@
 ;; Company (autocomplete)
 (use-package company
   :demand t
+  :custom (company-idle-delay 0.25)
   :bind ("TAB" . company-indent-or-complete-common)
   :config
   (setq company-tooltip-align-annotations t)
