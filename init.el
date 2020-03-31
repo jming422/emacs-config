@@ -894,7 +894,9 @@ with focus residing in the leftmost window."
 (use-package ace-window
   :bind (("M-o" . ace-window)
 	 ("s-o" . ace-swap-window))
-  :custom-face (aw-leading-char-face ((t . (:height 1.1 :weight bold :foreground "#e361c3")))))
+  :custom-face (aw-leading-char-face ((t . (:height 1.1 :weight bold :foreground "#e361c3"))))
+  :config
+  (setq aw-ignored-buffers (delete 'treemacs-mode aw-ignored-buffers)))
 
 (use-package eyebrowse
   :demand t
