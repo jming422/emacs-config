@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+	comint-delchar-or-maybe-eof
 	company-indent-or-complete-common
 	counsel-yank-pop
 	delete-horizontal-space
