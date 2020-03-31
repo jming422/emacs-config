@@ -62,7 +62,7 @@
 
 ;; Load non-public setings/configs
 (setq auth-sources '("~/.authinfo.gpg"))
-(load "~/.emacs.d/mysecrets.el" t)
+(load (locate-user-emacs-file "mysecrets.el") t)
 
 
 ;; Generic global keybindings
@@ -870,7 +870,7 @@ If provided, THIRD-WINDOW-SHRINK can customize the amount by which the magit buf
 (defun init-emacs ()
   "Initialize my buffers to edit my Emacs config."
   (interactive)
-  (init-project "~/.emacs.d/init.el" "~/.emacs.d/git-lisp/fira-code-mode/fira-code-mode.el"))
+  (init-project (locate-user-emacs-file "init.el") (locate-user-emacs-file "git-lisp/fira-code-mode/fira-code-mode.el")))
 (global-set-key (kbd "H-i e") #'init-emacs)
 
 (defun init-rust ()
@@ -1009,8 +1009,7 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
   (require 'exwm-config)
   ;; (setq exwm-workspace-number 4)
   (setq exwm-input-global-keys
-	`(
-	  ;; Bind "M-z" to exit char-mode and fullscreen mode
+	`(;; Bind "M-z" to exit char-mode and fullscreen mode
 	  (,(kbd "M-z") . exwm-reset)
 	  ;; Bind "s-w" to switch workspace interactively
 	  (,(kbd "s-w") . exwm-workspace-switch)
@@ -1023,12 +1022,9 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
 	  ;; Bind "s-SPC" to open applications
 	  (,(kbd "s-SPC") . (lambda (command)
 			   (interactive (list (read-shell-command "$ ")))
-			   (start-process-shell-command command nil command)))
-	  )
-    )
+			   (start-process-shell-command command nil command))))e)
   (setq exwm-input-simulation-keys
-	'(
-          ;; movement
+	'(;; movement
           ([?\C-b] . [left])
           ([?\M-b] . [C-left])
           ([?\C-f] . [right])
