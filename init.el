@@ -16,7 +16,7 @@
    '("99ea831ca79a916f1bd789de366b639d09811501e8c092c85b2cb7d697777f93" "d5f8099d98174116cba9912fe2a0c3196a7cd405d12fa6b9375c55fc510988b5" "c74e83f8aa4c78a121b52146eadb792c9facc5b1f02c917e3dbb454fca931223" "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(package-selected-packages
-   '(dashboard wttrin fira-code-mode doom-modeline doom-themes all-the-icons eterm-256color tide typescript-mode vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint exwm use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
+   '(dashboard wttrin fira-code-mode doom-modeline doom-themes all-the-icons tide typescript-mode vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint exwm use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
  '(safe-local-variable-values '((encoding . utf-8))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -126,7 +126,8 @@
       'doom-nova
       '(mc/cursor-bar-face :height 1 :background (doom-darken (doom-color 'dark-cyan) 0.3) :foreground (doom-lighten (doom-color 'cyan) 0.2))
       '(mode-line-inactive :background (doom-lighten (doom-color 'modeline-bg-alt) 0.05) :foreground (doom-lighten (doom-color 'modeline-fg-alt) 0.05))
-      '(sp-pair-overlay-face :background (doom-darken (doom-color 'dark-cyan) 0.15)))
+      '(sp-pair-overlay-face :background (doom-darken (doom-color 'dark-cyan) 0.15))
+      '(vterm-color-black :background (doom-lighten (doom-color 'base2) 0.6) :foreground (doom-color 'base2)))
     (enable-theme 'doom-nova))
 
   (defun golight ()
@@ -140,7 +141,8 @@
       '(highlight-indentation-face :background (doom-color 'base0))
       '(highlight-indentation-current-column-face :background (doom-color 'base2))
       '(company-tooltip :inherit 'tooltip)
-      '(markdown-code-face :background (doom-lighten (doom-color 'cyan) 0.95) :extend t))
+      '(markdown-code-face :background (doom-lighten (doom-color 'cyan) 0.95) :extend t)
+      '(vterm-color-black :background (doom-darken (doom-color 'base2) 0.5) :foreground (doom-color 'base2)))
     (enable-theme 'doom-one-light))
 
   (golight))
@@ -827,11 +829,7 @@
   ;; If on macOS: brew install the following: libvterm, libtool
   :commands vterm
   :bind (:map vterm-mode-map
-	      ("C-k" . vterm-send-C-k))
-  :custom (vterm-term-environment-variable "eterm-256color"))
-
-(use-package eterm-256color
-  :hook (vterm-mode . eterm-256color-mode))
+	      ("C-k" . vterm-send-C-k)))
 
 
 ;; Window stuff
