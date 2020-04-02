@@ -61,6 +61,7 @@ flycheck_*.el
 /image-dired/
 /recentf
 /session.*
+/.cache/
 /.lsp-session*
 /.dap-breakpoints
 /forge-database.sqlite

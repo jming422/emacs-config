@@ -551,7 +551,8 @@
   (lsp-ui-sideline-show-diagnostics t)
   (lsp-ui-sideline-show-hover nil)
   (lsp-ui-sideline-show-symbol nil)
-  :custom-face (lsp-ui-sideline-global ((t nil))))
+  :custom-face (lsp-ui-sideline-global ((t nil)))
+  :config (setq aw-ignored-buffers (delete 'treemacs-mode aw-ignored-buffers)))
 
 
 ;; DAP & Debugging
@@ -568,7 +569,7 @@
     (defvar my-dap-map (make-sparse-keymap))
     (bind-keys :map my-dap-map
 	       ("C-w b" . dap-ui-breakpoints-list)
-	       ("C-w i" . dap-ui-inspect)
+	       ("C-w e" . dap-ui-expressions)
 	       ("C-w l" . dap-ui-locals)
 	       ("C-w s" . dap-ui-sessions)
 	       ("D" . dap-disconnect)
@@ -892,9 +893,7 @@ with focus residing in the leftmost window."
 (use-package ace-window
   :bind (("M-o" . ace-window)
 	 ("s-o" . ace-swap-window))
-  :custom-face (aw-leading-char-face ((t . (:height 1.1 :weight bold :foreground "#e361c3"))))
-  :config
-  (setq aw-ignored-buffers (delete 'treemacs-mode aw-ignored-buffers)))
+  :custom-face (aw-leading-char-face ((t . (:height 1.1 :weight bold :foreground "#e361c3")))))
 
 (use-package eyebrowse
   :demand t
