@@ -425,6 +425,7 @@
 (use-package counsel
   :after ivy
   :demand t
+  :ensure-system-package rg
   :custom (counsel-grep-base-command "rg -i -M 120 --no-heading --line-number '%s' %s")
   :bind (("C-s" . counsel-grep-or-swiper)
 	 ("s-g" . counsel-rg))
@@ -457,6 +458,7 @@
 
 ;; Git, Magit, and Forge
 (use-package magit
+  :demand t
   :custom (magit-diff-use-overlays nil)
   :bind ("C-x g" . magit-status))
 
@@ -552,7 +554,8 @@
   (lsp-ui-sideline-show-hover nil)
   (lsp-ui-sideline-show-symbol nil)
   :custom-face (lsp-ui-sideline-global ((t nil)))
-  :config (setq aw-ignored-buffers (delete 'treemacs-mode aw-ignored-buffers)))
+  :config
+  (setq aw-ignored-buffers (delete 'treemacs-mode aw-ignored-buffers)))
 
 
 ;; DAP & Debugging
