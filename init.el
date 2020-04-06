@@ -611,7 +611,10 @@
     "Toggle pyvenv on or off."
     (interactive)
     (let ((f (if pyvenv-virtual-env
-		 #'pyvenv-deactivate
+		 (lambda ()
+		   (interactive)
+		   (pyvenv-deactivate)
+		   (message "Python virtual environment deactivated."))
 	       #'pyvenv-activate)))
       (call-interactively f)))
   :bind (:map elpy-mode-map
