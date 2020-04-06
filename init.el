@@ -244,9 +244,9 @@
   :if (eq system-type 'darwin)
   :ensure-system-package ("/Applications/Dash.app" . "brew cask install dash")
   :config
-  (let ((docsets (concat (alist-get 'python-mode dash-at-point-mode-alist) ",boto3,fnc,pyrsistent,toolz")))
+  (let ((docsets (concat (alist-get 'python-mode dash-at-point-mode-alist) ",boto3,fnc,pyrsistent,toolz,psql")))
     (add-to-list 'dash-at-point-mode-alist `(python-mode . ,docsets)))
-  (add-to-list 'dash-at-point-mode-alist '(rjsx-mode . "javascript,nodejs,lodash,moment,jest,react,awsjs,css"))
+  (add-to-list 'dash-at-point-mode-alist '(rjsx-mode . "javascript,nodejs,lodash,moment,jest,react,awsjs,psql,css"))
   (global-set-key (kbd "s-c") nil)
   (global-set-key (kbd "s-c s-d") #'dash-at-point))
 
