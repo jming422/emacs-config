@@ -508,6 +508,8 @@
 (use-package lsp-mode
   :commands lsp
   :hook ((shell-script-mode css-mode html-mode java-mode ruby-mode go-mode dart-mode rust-mode rjsx-mode swift-mode) . lsp)
+  :bind (:map lsp-mode-map
+	      ("M-r" . lsp-rename))
   :custom
   (lsp-auto-guess-root t)
   (lsp-clients-flow-server (let* ((root
@@ -625,7 +627,8 @@
 	      ("C-M-u" . elpy-nav-backward-indent)
 	      ("M-i" . elpy-format-code)
 	      ("C-c M-j" . elpy-shell-switch-to-shell)
-	      ("C-c C-v" . pyvenv-toggle))
+	      ("C-c C-v" . pyvenv-toggle)
+	      ("M-r" . elpy-refactor-options))
   :config
   (setq elpy-eldoc-show-current-function nil)
   ;; Bugged on macOS, too lazy to fix, would probably require https://pypi.org/project/gnureadline/

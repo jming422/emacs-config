@@ -26,6 +26,7 @@
 	rjsx-electric-lt
 	sp-backward-kill-sexp
 	sp-backward-sexp
+	sp-backward-slurp-sexp
 	sp-backward-up-sexp
 	sp-copy-sexp
 	sp-down-sexp
