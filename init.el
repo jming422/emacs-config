@@ -838,8 +838,9 @@
 (use-package vterm
   ;; If on macOS: brew install the following: libvterm, libtool
   :commands vterm
-  :bind (:map vterm-mode-map
-	      ("C-k" . vterm-send-C-k)))
+  :bind (("s-t" . vterm)
+	 (:map vterm-mode-map
+	       ("C-k" . vterm-send-C-k))))
 
 
 ;; Window stuff
