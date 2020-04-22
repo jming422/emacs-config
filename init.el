@@ -272,8 +272,10 @@
   (global-undo-tree-mode))
 
 
-;; Movement enhancements & multiple cursors
+;; Motion / movement & multiple cursors
 (global-subword-mode)
+(customize-set-variable 'indent-tabs-mode nil)
+
 
 (use-package avy
   :custom
