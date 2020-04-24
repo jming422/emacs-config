@@ -274,7 +274,6 @@
 
 ;; Motion / movement & multiple cursors
 (global-subword-mode)
-(customize-set-variable 'indent-tabs-mode nil)
 
 
 (use-package avy
@@ -593,7 +592,7 @@
 
 ;; SQL
 (use-package sql-indent
-  :hook (sql-mode . sqlind-minor-mode))
+  :hook (sql-mode . (lambda () (sqlind-minor-mode) (setq-local indent-tabs-mode nil))))
 
 ;; Clojure & Cider
 (use-package cider

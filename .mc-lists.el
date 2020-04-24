@@ -13,12 +13,16 @@
 	kill-sexp
 	magit-copy-buffer-revision
 	magit-previous-line
+	magit-section-backward
 	markdown-outdent-or-delete
 	mc-place-stop
+	org-beginning-of-line
 	org-cycle
 	org-delete-char
 	org-emphasize
+	org-end-of-line
 	org-self-insert-command
+	org-yank
 	python-indent-dedent-line
 	python-nav-forward-sexp-safe
 	rjsx-delete-creates-full-tag
