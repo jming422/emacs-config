@@ -668,8 +668,7 @@
   :after go-mode)
 
 (use-package go-scratch
-  :after go-mode
-  :hook go-mode)
+  :after go-mode)
 
 
 ;; Dart & Flutter

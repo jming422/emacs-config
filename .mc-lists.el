@@ -39,6 +39,7 @@
 	sp-remove-active-pair-overlay
 	sp-slurp-hybrid-sexp
 	upcase-char
+	vterm-end-of-line
 	yaml-electric-backspace
 	yaml-electric-dash-and-dot
 	yas-abort-snippet
@@ -54,4 +55,5 @@
 	quit
 	save-some-buffers
 	sp-rewrap-sexp
+	vterm-copy-mode
 	))
