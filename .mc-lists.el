@@ -43,6 +43,7 @@
 	yaml-electric-backspace
 	yaml-electric-dash-and-dot
 	yas-abort-snippet
+	yas-expand
 	))
 
 (setq mc/cmds-to-run-once
