@@ -1035,7 +1035,7 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
 	    ;; Bind "s-SPC" to open applications
 	    (,(kbd "s-SPC") . (lambda (command)
 				(interactive (list (read-shell-command "$ ")))
-				(start-process-shell-command command nil command))))e)
+				(start-process-shell-command command nil command)))))
     (setq exwm-input-simulation-keys
 	  '(;; movement
             ([?\C-b] . [left])
