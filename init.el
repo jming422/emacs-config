@@ -598,7 +598,20 @@
   :after sql
   :demand t
   :bind (:map sql-mode-map
-	      ("M-i" . sql-indent-buffer)))
+	      ("M-i" . sql-indent-buffer))
+  :custom (sql-indent-first-column-regexp
+	   ;; See sql-indent.el line 66
+	   (concat "\\(\\(^\\s-*"
+		   (regexp-opt
+		    '("select" "update" "insert" "delete" "alter"
+		      "union" "intersect" "with" "add"
+		      "from" "where" "into" "group" "having" "order" "join"
+		      "set" "as"
+		      "create" "drop" "truncate"
+		      "--" ")" ");" "),")
+		    t)
+		   "\\(\\b\\|\\s-\\)\\)\\|\\(^```$\\)\\)")))
+
 
 ;; Clojure & Cider
 (use-package cider

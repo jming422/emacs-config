@@ -21,6 +21,7 @@
 	org-delete-char
 	org-emphasize
 	org-end-of-line
+	org-return
 	org-self-insert-command
 	org-yank
 	python-indent-dedent-line
