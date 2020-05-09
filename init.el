@@ -145,7 +145,9 @@
       '(vterm-color-black :background (doom-darken (doom-color 'base2) 0.5) :foreground (doom-color 'base2)))
     (enable-theme 'doom-one-light))
 
-  (golight))
+  (if (> 18 (decoded-time-hour (decode-time)))
+      (golight)
+      (godark)))
 
 (use-package doom-modeline
   :after doom-themes
