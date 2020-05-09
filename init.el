@@ -1014,6 +1014,14 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
 
 ;; Linux customizations
 (when (eq system-type 'gnu/linux)
+  (use-package pinentry
+    :demand t
+    :config
+    (pinentry-start)
+    (defun pinentry-emacs (desc prompt ok error)
+      (let ((str (read-passwd (concat (replace-regexp-in-string "%22" "\"" (replace-regexp-in-string "%0A" "\n" desc)) prompt ": "))))
+	str)))
+
   (use-package exwm
     :demand t
     :hook ((exwm-update-class . (lambda ()
@@ -1025,7 +1033,7 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
 				    (exwm-workspace-rename-buffer exwm-title))))
 	   (exwm-manage-finish . (lambda ()
 				   (when (and exwm-class-name
-					      (string= exwm-class-name "PureBrowser"))
+					      (string= exwm-class-name "Firefox-esr"))
 				     (exwm-input-set-local-simulation-keys nil)))))
     :bind (:map exwm-mode-map
 		("C-q" . exwm-input-send-next-key)
@@ -1045,8 +1053,8 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
 			  (lambda () (interactive)
 			    (exwm-workspace-switch-create ,i))))
 		      (number-sequence 0 9))
-	    ;; Bind "s-SPC" to open applications
-	    (,(kbd "s-SPC") . (lambda (command)
+	    ;; Bind "M-SPC" to open applications
+	    (,(kbd "M-SPC") . (lambda (command)
 				(interactive (list (read-shell-command "$ ")))
 				(start-process-shell-command command nil command)))))
     (setq exwm-input-simulation-keys
@@ -1073,7 +1081,7 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
     (exwm-systemtray-enable)
     (setq-default visible-bell t)
     (exwm-enable)
-    (call-process "xmodmap" nil (get-buffer-create "wm") nil (expand-file-name "~/xmodmap-caps-ctrl"))))
+    (call-process "xmodmap" nil (get-buffer-create "wm") nil (expand-file-name "~/xmodmap-customizations"))))
 
 
 ;;; init.el ends here

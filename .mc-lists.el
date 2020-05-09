@@ -58,4 +58,5 @@
 	save-some-buffers
 	sp-rewrap-sexp
 	vterm-copy-mode
+	yank-rectangle
 	))
