@@ -74,6 +74,7 @@
 (global-set-key (kbd "H-u") #'upcase-char)
 (global-set-key (kbd "H-d") #'downcase-dwim)
 (global-set-key (kbd "s-s") #'sort-lines)
+(global-set-key (kbd "s-u") #'revert-buffer)
 (global-set-key (kbd "s-%") #'query-replace-regexp)
 (global-set-key (kbd "s-.") #'xref-find-definitions-other-window)
 (global-set-key (kbd "H-SPC") #'just-one-space)
@@ -991,7 +992,7 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
 	(setenv k v)))))
 
 
-;; Fixes for emoji support
+;; Fixes for emoji support ✨
 (defun --provide-emoji-font (frame)
   "Fixes emoji font loading in FRAME."
   (let ((emoji-font (if (eq system-type 'darwin)
