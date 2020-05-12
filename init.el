@@ -619,7 +619,6 @@
 ;; Clojure & Cider
 (use-package cider
   :defer t
-  :custom (cider-default-cljs-repl 'figwheel)
   :bind (:map cider-mode-map
               ("M-i" . cider-format-buffer)))
 
