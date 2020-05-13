@@ -17,7 +17,9 @@
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(package-selected-packages
    '(dashboard fira-code-mode doom-modeline doom-themes all-the-icons tide typescript-mode vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl cargo racer rust-mode go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
- '(safe-local-variable-values '((encoding . utf-8))))
+ '(safe-local-variable-values
+   '((cider-clojure-cli-global-options . "-A:dev")
+     (encoding . utf-8))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
