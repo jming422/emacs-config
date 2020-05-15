@@ -51,7 +51,7 @@
 (require 'bind-key)
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
-;;(setq use-package-verbose t)
+(setq use-package-verbose t)
 (use-package use-package-ensure-system-package)
 
 
