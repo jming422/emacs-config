@@ -1034,15 +1034,14 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
 	   (exwm-update-title . (lambda ()
 				  (when (or (not exwm-instance-name)
 					    (string-prefix-p "sun-awt-X11-" exwm-instance-name))
-				    (exwm-workspace-rename-buffer exwm-title))))
-	   (exwm-manage-finish . (lambda ()
-				   (when (and exwm-class-name
-					      (string= exwm-class-name "Firefox-esr"))
-				     (exwm-input-set-local-simulation-keys nil)))))
+				    (exwm-workspace-rename-buffer exwm-title)))))
     :bind (:map exwm-mode-map
 		("C-q" . exwm-input-send-next-key)
 		("M-o" . ace-window)
 		("s-o" . ace-swap-window))
+    :init
+    (require 'exwm-systemtray)
+    (exwm-systemtray-enable)
     :config
     (require 'exwm-config)
     ;; (setq exwm-workspace-number 4)
@@ -1081,8 +1080,6 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
             ([?\C-y] . [?\C-v])
             ;; search
             ([?\C-s] . [?\C-f])))
-    (require 'exwm-systemtray)
-    (exwm-systemtray-enable)
     (setq-default visible-bell t)
     (exwm-enable)
     (call-process "xmodmap" nil (get-buffer-create "wm") nil (expand-file-name "~/xmodmap-customizations"))))
