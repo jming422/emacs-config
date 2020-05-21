@@ -929,6 +929,7 @@ with focus residing in the leftmost window."
 (use-package ace-window
   :bind (("M-o" . ace-window)
 	 ("s-o" . ace-swap-window))
+  :custom (aw-dispatch-always t)
   :custom-face (aw-leading-char-face ((t . (:height 1.1 :weight bold :foreground "#e361c3")))))
 
 (use-package eyebrowse
