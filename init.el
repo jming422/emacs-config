@@ -627,6 +627,7 @@
 ;; Clojure & Cider
 (use-package cider
   :defer t
+  :hook (clojure-mode . (lambda () (add-hook 'before-save-hook #'cider-format-buffer t t)))
   :bind (:map cider-mode-map
               ("M-i" . cider-format-buffer)))
 
