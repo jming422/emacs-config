@@ -80,6 +80,7 @@
 (global-set-key (kbd "s-u") #'revert-buffer)
 (global-set-key (kbd "s-%") #'query-replace-regexp)
 (global-set-key (kbd "s-.") #'xref-find-definitions-other-window)
+(global-set-key (kbd "M-/") #'hippie-expand)
 (global-set-key (kbd "H-SPC") #'just-one-space)
 (global-set-key (kbd "M-j") (lambda () (interactive)
 			      (exchange-point-and-mark)
