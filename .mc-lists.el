@@ -6,8 +6,10 @@
 	comint-delchar-or-maybe-eof
 	company-indent-or-complete-common
 	counsel-yank-pop
+	dabbrev-completion
 	delete-horizontal-space
 	downcase-dwim
+	eval-last-sexp
 	forward-sexp
 	kill-region
 	kill-sexp
@@ -57,7 +59,10 @@
 	prettier-js
 	quit
 	save-some-buffers
+	scroll-other-window
 	sp-rewrap-sexp
+	undo-tree-visualize
 	vterm-copy-mode
+	xref-find-definitions-other-window
 	yank-rectangle
 	))
