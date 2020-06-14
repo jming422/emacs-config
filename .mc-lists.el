@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+	cljr-slash
 	comint-delchar-or-maybe-eof
 	company-indent-or-complete-common
 	counsel-yank-pop
@@ -11,6 +12,7 @@
 	downcase-dwim
 	eval-last-sexp
 	forward-sexp
+	ignore
 	kill-region
 	kill-sexp
 	magit-copy-buffer-revision

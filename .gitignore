@@ -66,3 +66,4 @@ flycheck_*.el
 /.dap-breakpoints
 /forge-database.sqlite
 /projectile-bookmarks.eld
+/workspace/
