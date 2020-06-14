@@ -50,6 +50,13 @@ flycheck_*.el
 # Undo-tree save-files
 *.~undo-tree
 
+# Language server session files
+.nrepl-port
+/session.*
+/.lsp-session*
+/.dap-breakpoints
+/workspace/
+
 # Local-only files
 /mysecrets.el
 /transient/
@@ -60,10 +67,6 @@ flycheck_*.el
 /.extension/
 /image-dired/
 /recentf
-/session.*
 /.cache/
-/.lsp-session*
-/.dap-breakpoints
 /forge-database.sqlite
 /projectile-bookmarks.eld
-/workspace/
