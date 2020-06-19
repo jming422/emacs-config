@@ -1042,7 +1042,6 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
   (setq mac-option-modifier 'super)
   (setq mac-right-control-modifier 'hyper)
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
-  (add-to-list 'default-frame-alist '(ns-appearance . light))
   (add-hook 'ns-system-appearance-change-functions
             (lambda (appearance)
 	      (pcase appearance
