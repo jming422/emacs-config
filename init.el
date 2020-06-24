@@ -251,7 +251,7 @@
   :if (eq system-type 'darwin)
   :ensure-system-package ("/Applications/Dash.app" . "brew cask install dash")
   :config
-  (let ((py-docsets (concat (alist-get 'python-mode dash-at-point-mode-alist) ",boto3,fnc,pyrsistent,toolz,psql"))
+  (let ((py-docsets (concat (alist-get 'python-mode dash-at-point-mode-alist) ",boto3,scikit-learn,fnc,pyrsistent,toolz,psql"))
 	(clj-docsets (concat (alist-get 'clojure-mode dash-at-point-mode-alist) ",cljdoc")))
     (add-to-list 'dash-at-point-mode-alist `(python-mode . ,py-docsets))
     (add-to-list 'dash-at-point-mode-alist `(clojure-mode . ,clj-docsets)))
@@ -679,10 +679,14 @@
 	      ("C-c M-j" . elpy-shell-switch-to-shell)
 	      ("C-c C-v" . pyvenv-toggle)
 	      ("M-r" . elpy-refactor-options))
+  :custom
+  (python-shell-interpreter "jupyter")
+  (python-shell-interpreter-args "console --simple-prompt")
+  (python-shell-prompt-detect-failure-warning nil)
+  (elpy-eldoc-show-current-function nil)
+  (elpy-shell-echo-output nil)
   :config
-  (setq elpy-eldoc-show-current-function nil)
-  ;; Bugged on macOS, too lazy to fix, would probably require https://pypi.org/project/gnureadline/
-  (when (eq system-type 'darwin) (setq python-shell-completion-native-enable nil))
+  (add-to-list 'python-shell-completion-native-disabled-interpreters "jupyter")
   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
   (add-hook 'elpy-mode-hook (lambda () (add-hook 'before-save-hook 'elpy-format-code nil 'local))))
 
