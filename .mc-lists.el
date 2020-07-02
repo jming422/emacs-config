@@ -25,6 +25,7 @@
 	org-delete-char
 	org-emphasize
 	org-end-of-line
+	org-force-self-insert
 	org-open-line
 	org-return
 	org-self-insert-command
@@ -57,6 +58,7 @@
 	ace-swap-window
 	counsel-M-x
 	counsel-grep-or-swiper
+	dap-tooltip-mouse-motion
 	mc-place
 	prettier-js
 	quit

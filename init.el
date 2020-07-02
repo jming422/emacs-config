@@ -343,7 +343,6 @@
 (use-package org
   :custom
   (org-export-backends '(ascii html icalendar latex odt md))
-  (org-pretty-entities t)
   (org-capture-templates '(("c" "Simple code link template" entry
 			    (file "~/Documents/notes.org")
 			    "** %f: %a" :immediate-finish t)))
@@ -859,7 +858,9 @@
 (use-package tide
   :after (typescript-mode company flycheck)
   :hook ((typescript-mode . tide-setup)
-         (typescript-mode . tide-hl-identifier-mode)))
+         (typescript-mode . tide-hl-identifier-mode))
+  :bind (:map typescript-mode-map
+	      ("M-r" . tide-refactor)))
 
 
 ;; YAML
