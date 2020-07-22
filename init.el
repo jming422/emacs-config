@@ -118,7 +118,7 @@
 (global-eldoc-mode)
 (add-to-list 'default-frame-alist
 	     '(font . "Fira Code-12"))
-
+(setq-default fill-column 120)
 (customize-set-variable 'display-time-default-load-average nil)
 (customize-set-variable 'display-time-day-and-date t)
 (display-time)
@@ -476,7 +476,10 @@
   :bind ("C-x g" . magit-status))
 
 (use-package forge
-  :after magit)
+  :after magit
+  :config
+  (transient-append-suffix 'forge-dispatch '(0 2 -1)
+    '("c x" "pull review request" forge-edit-topic-review-requests)))
 
 (use-package git-gutter
   :custom (git-gutter:ask-p nil)
