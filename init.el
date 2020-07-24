@@ -923,7 +923,7 @@
   (interactive "nBy: ")
   (enlarge-window height))
 
-(defun init-project (file &optional file2 third-window-shrink)
+(defun init-project (file &optional file2 magit-window-shrink)
   "Initialize my windows for the project specified by FILE.
 FILE represents the project root file to open.
 If provided, FILE2 will be opened in the right-side window.
@@ -931,18 +931,22 @@ If provided, FILE2 will be opened in the right-side window.
 Either FILE or FILE2 may instead be the symbol `vterm', in which case a new
 vterm instance will be started in that window.
 
-If provided, THIRD-WINDOW-SHRINK can customize the amount by which the magit
+If provided, MAGIT-WINDOW-SHRINK can customize the amount by which the magit
 window is shrunk (defaults to 15)."
   (interactive)
   (delete-other-windows)
-  (let ((f (or file2 file)))
-    (if (eq f 'vterm) (vterm) (find-file f)))
-  (split-window-right)
-  (split-window-below)
-  (call-interactively #'magit-status)
-  (shrink-window (or third-window-shrink 15))
-  (other-window 1)
-  (if (eq file 'vterm) (vterm) (find-file file)))
+  (let ((first-file (car (remove 'vterm (list file file2)))))
+    (if (not first-file)
+	(warn "At least one arg to init-project must be a file path")
+      (find-file first-file)
+      (split-window-right)
+      (split-window-below)
+      (call-interactively #'magit-status) ;; Moves point to magit status buffer
+      (shrink-window (or magit-window-shrink 15))
+      (other-window -1)
+      (if (eq file2 'vterm) (vterm) (find-file file2))
+      (other-window 2)
+      (if (eq file 'vterm) (vterm) (find-file file)))))
 
 (defun init-emacs ()
   "Initialize my buffers to edit my Emacs config."
