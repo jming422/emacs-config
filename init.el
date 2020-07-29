@@ -89,6 +89,8 @@
 			      (exchange-point-and-mark)
 			      (deactivate-mark)))
 (global-set-key (kbd "C-x C-p") #'list-processes)
+(global-set-key (kbd "C-,") #'switch-to-buffer)
+(global-set-key (kbd "C-.") #'find-file)
 
 
 ;; Super Save, ON! ...or not.. 😬
