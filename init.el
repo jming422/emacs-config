@@ -945,6 +945,7 @@ window is shrunk (defaults to 15)."
       (split-window-below)
       (call-interactively #'magit-status) ;; Moves point to magit status buffer
       (shrink-window (or magit-window-shrink 15))
+      (shrink-window-horizontally 5)
       (other-window -1)
       (if (eq file2 'vterm) (vterm) (find-file file2))
       (other-window 2)
