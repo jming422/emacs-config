@@ -18,7 +18,7 @@
  '(display-time-default-load-average nil)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(package-selected-packages
-   '(rustic request-deferred ein olivetti cljr-ivy clj-refactor dashboard fira-code-mode doom-modeline doom-themes all-the-icons tide typescript-mode vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui company-lsp lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
+   '(rustic request-deferred ein olivetti cljr-ivy clj-refactor dashboard fira-code-mode doom-modeline doom-themes all-the-icons tide typescript-mode vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
  '(safe-local-variable-values
    '((cider-clojure-cli-global-options . "-A:dev -R:test")
      (cider-clojure-cli-global-options . "-A:dev")
@@ -541,14 +541,13 @@
   (lsp-clients-go-format-tool "gofmt")
   (lsp-enable-snippet nil)
   (lsp-keep-workspace-alive nil)
-  (lsp-prefer-flymake nil)
-  (lsp-flycheck-live-reporting nil))
-
-(use-package company-lsp
-  :after (lsp-mode company)
-  :custom (company-lsp-enable-snippet nil)
+  (lsp-flycheck-live-reporting nil)
+  (lsp-eslint-format nil)
+  (lsp-eslint-run "onSave")
   :config
-  (push 'company-lsp company-backends))
+  (let ((eslint-server "/Users/jming/.vscode/extensions/dbaeumer.vscode-eslint-2.1.6/server/out/eslintServer.js"))
+    (when (file-exists-p eslint-server)
+      (setq lsp-eslint-server-command `("node" ,eslint-server "--stdio")))))
 
 (use-package lsp-java
   :after lsp-mode)
@@ -788,7 +787,8 @@
 		      (when (string-equal "tsx" (file-name-extension buffer-file-name))
 			(prettier-js-mode)
 			(tide-setup)
-			(tide-hl-identifier-mode))))
+			(tide-hl-identifier-mode)
+			(setq-local web-mode-auto-quote-style 3))))
   :config
   (flycheck-add-mode 'typescript-tslint 'web-mode)
   :custom
@@ -818,7 +818,7 @@
 (use-package rjsx-mode
   :custom (js-indent-level 2)
   :after prettier-js
-  :mode ("\\.jsx?\\'")
+  :mode ("\\.m?jsx?\\'")
 ;;  :interpreter ("nodejs" "node")
   :bind (:map rjsx-mode-map
          ("M-i" . prettier-js)
