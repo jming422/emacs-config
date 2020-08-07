@@ -285,6 +285,7 @@
 ;; Undo and Kill enhancements
 (use-package undo-tree
   :demand t
+  :custom (undo-tree-auto-save-history t)
   :bind ("s-/" . undo-tree-visualize)
   :config
   (global-undo-tree-mode))
