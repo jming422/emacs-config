@@ -780,7 +780,7 @@
 	 ("M-." . lsp-goto-implementation)))
 
 (use-package web-mode
-  :after prettier-js
+  :after (prettier-js tide)
   :mode ("\\.ejs\\'" "\\.erb\\'" "\\.mustache\\'" "\\.tsx\\'")
   :bind (:map web-mode-map
 	      ("M-i" . prettier-js))
@@ -847,6 +847,7 @@
 ;; Typescript / Tide / TSX
 (use-package typescript-mode
   :after prettier-js
+  :demand t ;; Not sure how to deal with the typescript/tide/web load order situation
   :bind (:map typescript-mode-map
 	      ("M-i" . prettier-js))
   :custom (typescript-indent-level 2))
