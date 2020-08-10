@@ -780,7 +780,7 @@
 	 ("M-." . lsp-goto-implementation)))
 
 (use-package web-mode
-  :after (prettier-js tide)
+  :after prettier-js
   :mode ("\\.ejs\\'" "\\.erb\\'" "\\.mustache\\'" "\\.tsx\\'")
   :bind (:map web-mode-map
 	      ("M-i" . prettier-js))
@@ -854,6 +854,7 @@
 
 (use-package tide
   :after (typescript-mode company flycheck)
+  :commands (tide-setup tide-hl-identifier-mode)
   :hook ((typescript-mode . tide-setup)
          (typescript-mode . tide-hl-identifier-mode))
   :bind (:map typescript-mode-map
