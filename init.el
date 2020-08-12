@@ -388,9 +388,7 @@
 	 ("M-i" . sp-indent-defun))
   :config
   (require 'smartparens-config)
-  (smartparens-global-mode)
-;;  (sp-local-pair 'web-mode "{" nil :actions '(:rem insert))
-  )
+  (smartparens-global-mode))
 
 
 ;; Snippets
@@ -528,7 +526,7 @@
 
 (use-package lsp-mode
   :commands lsp
-  :hook ((shell-script-mode css-mode html-mode java-mode ruby-mode go-mode dart-mode rjsx-mode swift-mode) . lsp)
+  :hook ((shell-script-mode css-mode html-mode java-mode ruby-mode go-mode dart-mode rjsx-mode typescript-mode swift-mode) . lsp)
   :bind (:map lsp-mode-map
 	      ("M-r" . lsp-rename))
   :custom
@@ -789,8 +787,7 @@
   :hook (web-mode . (lambda ()
 		      (when (string-equal "tsx" (file-name-extension buffer-file-name))
 			(prettier-js-mode)
-			(tide-setup)
-			(tide-hl-identifier-mode)
+			(lsp)
 			(setq-local web-mode-auto-quote-style 3))))
   :config
   (flycheck-add-mode 'typescript-tslint 'web-mode)
@@ -814,7 +811,7 @@
 	 ("M-." . lsp-goto-implementation)))
 
 
-;; JavaScript / Node.js / React (JSX)
+;; JavaScript / Typescript / React (JSX)
 (use-package add-node-modules-path
   :commands add-node-modules-path)
 
@@ -822,10 +819,17 @@
   :custom (js-indent-level 2)
   :after prettier-js
   :mode ("\\.m?jsx?\\'")
-;;  :interpreter ("nodejs" "node")
   :bind (:map rjsx-mode-map
          ("M-i" . prettier-js)
          ("M-." . xref-find-definitions))
+  :config
+  (add-node-modules-path))
+
+(use-package typescript-mode
+  :custom (typescript-indent-level 2)
+  :after prettier-js
+  :bind (:map typescript-mode-map
+	      ("M-i" . prettier-js))
   :config
   (add-node-modules-path))
 
@@ -837,30 +841,18 @@
 	 ("M-i" . prettier-js)))
 
 (use-package nodejs-repl
-  :after rjsx-mode
+  :after (rjsx-mode typescript-mode)
   :commands nodejs-repl
   :bind (:map rjsx-mode-map
-	      ("C-c M-j" . nodejs-repl)
-	      ("C-x C-e" . nodejs-repl-send-last-expression)
-	      ("C-x C-r" . nodejs-repl-send-region)
-	      ("C-c C-k" . nodejs-repl-load-file)))
-
-
-;; Typescript / Tide / TSX
-(use-package typescript-mode
-  :after prettier-js
-  :demand t ;; Not sure how to deal with the typescript/tide/web load order situation
-  :bind (:map typescript-mode-map
-	      ("M-i" . prettier-js))
-  :custom (typescript-indent-level 2))
-
-(use-package tide
-  :after (typescript-mode company flycheck)
-  :commands (tide-setup tide-hl-identifier-mode)
-  :hook ((typescript-mode . tide-setup)
-         (typescript-mode . tide-hl-identifier-mode))
-  :bind (:map typescript-mode-map
-	      ("M-r" . tide-refactor)))
+	 ("C-c M-j" . nodejs-repl)
+	 ("C-x C-e" . nodejs-repl-send-last-expression)
+	 ("C-x C-r" . nodejs-repl-send-region)
+	 ("C-c C-k" . nodejs-repl-load-file)
+         :map typescript-mode-map
+         ("C-c M-j" . nodejs-repl)
+         ("C-x C-e" . nodejs-repl-send-last-expression)
+         ("C-x C-r" . nodejs-repl-send-region)
+         ("C-c C-k" . nodejs-repl-load-file)))
 
 
 ;; YAML
