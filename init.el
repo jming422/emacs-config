@@ -93,6 +93,7 @@
 (global-set-key (kbd "C-x C-p") #'list-processes)
 (global-set-key (kbd "C-,") #'switch-to-buffer)
 (global-set-key (kbd "C-.") #'find-file)
+(global-set-key (kbd "M-RET") #'browse-url)
 
 
 ;; Super Save, ON! ...or not.. 😬
@@ -320,7 +321,7 @@
 	 ("s-d" . mc/mark-next-word-like-this)
 	 ("s-r" . mc/mark-all-dwim)
 	 (:map mc/keymap
-          ("<return>" . nil)
+          ("RET" . nil)
 	  ("s-s" . mc/sort-regions)))
   :config
   (defvar mc-placement-map (make-sparse-keymap))
@@ -334,7 +335,7 @@
 	       ("D" . mc/mark-previous-word-like-this)
 	       ("r" . mc/mark-all-dwim)
 	       ("=" . er/expand-region)
-	       ("<return>" . quit)
+	       ("RET" . quit)
 	       ("q" . quit))
     (hercules-def
      :toggle-funs #'mc-place
@@ -991,7 +992,7 @@ with focus residing in the leftmost window."
 	     ("b" . shrink-window-horizontally)
 	     ("d" . init-dap)
 	     ("q" . quit)
-	     ("<return>" . quit))
+	     ("RET" . quit))
   (hercules-def
    :toggle-funs #'my-window-prefix
    :hide-funs '(cool-enlarge-window balance-windows init-dap quit)
