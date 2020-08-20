@@ -20,9 +20,7 @@
  '(package-selected-packages
    '(rustic request-deferred ein olivetti cljr-ivy clj-refactor dashboard fira-code-mode doom-modeline doom-themes all-the-icons vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode company-php prettier-js add-node-modules-path nodejs-repl go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
  '(safe-local-variable-values
-   '((lsp-file-watch-ignored append lsp-file-watch-ignored
-			     '("[/\\\\]build" "[/\\\\]tmp" "[/\\\\]tests[/\\\\]testdata"))
-     (cider-clojure-cli-global-options . "-A:dev -R:test")
+   '((cider-clojure-cli-global-options . "-A:dev -R:test")
      (cider-clojure-cli-global-options . "-A:dev")
      (encoding . utf-8))))
 (custom-set-faces
@@ -549,7 +547,8 @@
   :config
   (let ((eslint-server "/Users/jming/.vscode/extensions/dbaeumer.vscode-eslint-2.1.6/server/out/eslintServer.js"))
     (when (file-exists-p eslint-server)
-      (setq lsp-eslint-server-command `("node" ,eslint-server "--stdio")))))
+      (setq lsp-eslint-server-command `("node" ,eslint-server "--stdio"))))
+  (nconc lsp-file-watch-ignored '("[/\\\\]build" "[/\\\\]tmp" "[/\\\\]tests[/\\\\]testdata")))
 
 (use-package lsp-java
   :after lsp-mode)
@@ -578,40 +577,16 @@
   :config
   (setq aw-ignored-buffers (delete 'treemacs-mode aw-ignored-buffers)))
 
-
-;; DAP & Debugging
 (use-package dap-mode
-  :hook ((lsp-mode . dap-mode)
-	 (python-mode . (lambda () (require 'dap-python)))
-	 (go-mode . (lambda () (require 'dap-go) (dap-go-setup)))
-	 (rjsx-mode . (lambda () (require 'dap-node) (dap-node-setup))))
+  :after lsp-mode
+  :custom (dap-auto-configure-features '(sessions locals breakpoints))
+  :hook ((lsp-mode . dap-auto-configure-mode)
+	 ((rjsx-mode typescript-mode) . (lambda () (dap-node-setup) (register-dap-templates-node))))
   :config
-  (register-dap-templates-node)
-  (register-dap-templates-python)
-  (dap-ui-mode)
-  (let (quit)
-    (defvar my-dap-map (make-sparse-keymap))
-    (bind-keys :map my-dap-map
-	       ("C-w b" . dap-ui-breakpoints-list)
-	       ("C-w e" . dap-ui-expressions)
-	       ("C-w l" . dap-ui-locals)
-	       ("C-w s" . dap-ui-sessions)
-	       ("D" . dap-disconnect)
-	       ("b" . dap-breakpoint-toggle)
-	       ("c" . dap-continue)
-	       ("e" . dap-eval)
-	       ("i" . dap-step-in)
-	       ("l" . dap-go-to-output-buffer)
-	       ("n" . dap-next)
-	       ("o" . dap-step-out)
-	       ("q" . quit)
-	       ("r" . dap-restart-frame)
-	       ("s" . dap-switch-stack-frame))
-    (hercules-def
-     :show-funs '(dap-debug dap-debug-last my-dap-prefix)
-     :hide-funs '(dap-disconnect quit dap-eval dap-switch-stack-frame)
-     :keymap 'my-dap-map)
-    (global-set-key (kbd "H-b") #'my-dap-prefix)))
+  (require 'dap-python)
+  (require 'dap-node)
+  (add-hook 'dap-stopped-hook
+            (lambda (arg) (call-interactively #'dap-hydra))))
 
 
 ;; SQL
@@ -819,7 +794,7 @@
 (use-package rjsx-mode
   :custom (js-indent-level 2)
   :after prettier-js
-  :mode ("\\.m?jsx?\\'")
+  :mode ("\\.jsx?\\'" "\\.[cm]js\\'")
   :bind (:map rjsx-mode-map
          ("M-i" . prettier-js)
          ("M-." . xref-find-definitions))
