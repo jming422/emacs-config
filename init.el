@@ -441,7 +441,9 @@
   :after ivy
   :demand t
   :ensure-system-package rg
-  :custom (counsel-grep-base-command "rg -i -M 120 --no-heading --line-number %s %s")
+  :custom
+  (counsel-grep-base-command "rg -i -M 120 --no-heading --line-number %s %s")
+  (counsel-find-file-ignore-regexp "\\(?:\\`[#.]\\)\\|\\(?:\\`.+?[#~]\\'\\)")
   :bind (("C-s" . counsel-grep-or-swiper)
 	 ("s-g" . counsel-rg))
   :config
