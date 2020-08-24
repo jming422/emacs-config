@@ -54,6 +54,7 @@ flycheck_*.el
 .nrepl-port
 /session.*
 /.lsp-session*
+/lsp-cache
 /.dap-breakpoints
 /workspace/
 
