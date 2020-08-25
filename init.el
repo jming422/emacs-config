@@ -589,6 +589,7 @@
   :config
   (require 'dap-python)
   (require 'dap-node)
+  (dap-register-debug-template "Node::Attach" '(:type "node" :request "attach" :name "Node::Attach"))
   (add-hook 'dap-stopped-hook
             (lambda (arg) (call-interactively #'dap-hydra))))
 

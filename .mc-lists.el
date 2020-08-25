@@ -10,6 +10,7 @@
 	dabbrev-completion
 	delete-horizontal-space
 	downcase-dwim
+	electric-newline-and-maybe-indent
 	eval-last-sexp
 	forward-sexp
 	ignore
