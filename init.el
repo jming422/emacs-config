@@ -297,7 +297,6 @@
 ;; Motion / movement & multiple cursors
 (global-subword-mode)
 
-
 (use-package avy
   :custom
   (avy-single-candidate-jump nil)
@@ -305,7 +304,6 @@
   :bind (("M-l" . avy-goto-line)
 	 ("M-c" . avy-goto-word-1)
 	 ("M-s" . avy-goto-char-timer)))
-
 
 (defun mc-place ()
   "Function for the mc hercules entry point."
@@ -321,7 +319,7 @@
 	 ("s-d" . mc/mark-next-word-like-this)
 	 ("s-r" . mc/mark-all-dwim)
 	 (:map mc/keymap
-          ("RET" . nil)
+          ("<return>" . nil) ;; They must have bound <return>, since changing this to RET makes it not work
 	  ("s-s" . mc/sort-regions)))
   :config
   (defvar mc-placement-map (make-sparse-keymap))
@@ -869,6 +867,7 @@
 ;; vterm
 (use-package vterm
   ;; If on macOS: brew install the following: libvterm, libtool
+  :custom (vterm-max-scrollback 25000)
   :commands vterm
   :bind (("s-t" . vterm)
 	 (:map vterm-mode-map
