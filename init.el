@@ -257,9 +257,11 @@
   :ensure-system-package ("/Applications/Dash.app" . "brew cask install dash")
   :config
   (let ((py-docsets (concat (alist-get 'python-mode dash-at-point-mode-alist) ",boto3,scikit-learn,fnc,pyrsistent,toolz,psql"))
-	(clj-docsets (concat (alist-get 'clojure-mode dash-at-point-mode-alist) ",cljdoc")))
+	(clj-docsets (concat (alist-get 'clojure-mode dash-at-point-mode-alist) ",cljdoc"))
+	(rust-docsets (concat (alist-get 'rust-mode dash-at-point-mode-alist) ",psql")))
     (add-to-list 'dash-at-point-mode-alist `(python-mode . ,py-docsets))
-    (add-to-list 'dash-at-point-mode-alist `(clojure-mode . ,clj-docsets)))
+    (add-to-list 'dash-at-point-mode-alist `(clojure-mode . ,clj-docsets))
+    (add-to-list 'dash-at-point-mode-alist `(rustic-mode . ,rust-docsets)))
   (add-to-list 'dash-at-point-mode-alist '(rjsx-mode . "javascript,nodejs,lodash,moment,jest,react,awsjs,psql,css"))
   (global-set-key (kbd "s-c") nil)
   (global-set-key (kbd "s-c s-d") #'dash-at-point))
@@ -345,12 +347,15 @@
 
 ;; Org mode & prose writing
 (use-package org
+  :demand t
   :custom
   (org-export-backends '(ascii html icalendar latex odt md))
   (org-capture-templates '(("c" "Simple code link template" entry
 			    (file "~/Documents/notes.org")
 			    "** %f: %a" :immediate-finish t)))
   (org-default-notes-file "~/Documents/notes.org")
+  :bind (:map org-mode-map
+	      ("C-," . nil))
   :config
   (global-set-key (kbd "H-o H-c") #'org-capture))
 
@@ -686,7 +691,8 @@
   :commands markdown-mode
   :bind (:map markdown-mode-map
          ("M-n" . nil)
-         ("M-p" . nil)))
+         ("M-p" . nil)
+	 ("TAB" . nil)))
 
 
 ;; Graphviz
@@ -730,6 +736,8 @@
 
 ;; Rust
 (use-package rustic
+  :custom (rustic-format-trigger 'on-save)
+  :hook (rustic-mode . (lambda () (setq-local company-backends (remove 'company-emoji company-backends))))
   :bind (:map rustic-mode-map
 	      ("M-i" . rustic-format-buffer)))
 
