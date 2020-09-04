@@ -561,11 +561,9 @@
   :after lsp-mode)
 
 (use-package lsp-sourcekit
-  :disabled ;; Not writing Swift at the moment, haven't gotten around to installing the toolchain again
   :after lsp-mode
   :config
-  (setq lsp-sourcekit-executable
-	(expand-file-name "/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin/sourcekit-lsp")))
+  (setq lsp-sourcekit-executable "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp"))
 
 (use-package lsp-ui
   :hook (lsp-mode . lsp-ui-mode)
