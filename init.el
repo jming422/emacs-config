@@ -143,7 +143,7 @@
       '(vterm-color-black :background (doom-lighten (doom-color 'base2) 0.6) :foreground (doom-color 'base2))
       '(font-lock-comment-face :foreground (doom-lighten (doom-color 'base7) 0.3))
       '(font-lock-comment-delimiter-face :foreground (doom-lighten (doom-color 'base7) 0.15))
-      '(lsp-lsp-flycheck-warning-unnecessary-face :foreground (doom-darken (doom-color 'teal) 0.2)))
+      '(lsp-lsp-flycheck-warning-unnecessary-face :foreground (doom-darken (doom-color 'teal) 0.25)))
     (enable-theme 'doom-nova))
 
   (defun golight ()
