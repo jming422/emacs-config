@@ -18,7 +18,7 @@
  '(display-time-default-load-average nil)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(package-selected-packages
-   '(typescript-mode rustic request-deferred ein olivetti cljr-ivy clj-refactor dashboard fira-code-mode doom-modeline doom-themes all-the-icons vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode prettier-js add-node-modules-path nodejs-repl go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
+   '(vyper-mode typescript-mode rustic request-deferred ein olivetti cljr-ivy clj-refactor dashboard fira-code-mode doom-modeline doom-themes all-the-icons vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode prettier-js add-node-modules-path nodejs-repl go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
  '(safe-local-variable-values
    '((cider-clojure-cli-global-options . "-A:dev -R:test")
      (cider-clojure-cli-global-options . "-A:dev")
@@ -143,7 +143,7 @@
       '(vterm-color-black :background (doom-lighten (doom-color 'base2) 0.6) :foreground (doom-color 'base2))
       '(font-lock-comment-face :foreground (doom-lighten (doom-color 'base7) 0.3))
       '(font-lock-comment-delimiter-face :foreground (doom-lighten (doom-color 'base7) 0.15))
-      '(lsp-lsp-flycheck-warning-unnecessary-face :foreground (doom-darken (doom-color 'teal) 0.25)))
+      '(lsp-lsp-flycheck-warning-unnecessary-face :foreground (doom-darken (doom-color 'teal) 0.25) :underline '(:style wave :color "#DADA93")))
     (enable-theme 'doom-nova))
 
   (defun golight ()
@@ -667,7 +667,7 @@
 	      ("M-i" . elpy-format-code)
 	      ("C-c M-j" . elpy-shell-switch-to-shell)
 	      ("C-c C-v" . pyvenv-toggle)
-	      ("M-r" . elpy-refactor-options))
+	      ("M-r" . elpy-multiedit-python-symbol-at-point))
   :custom
   (python-shell-interpreter "jupyter")
   (python-shell-interpreter-args "console --simple-prompt")
@@ -685,6 +685,10 @@
   :mode ("\\.ipynb\\'")
   :bind (:map ein:ipynb-mode-map
 	      ("C-c C-v" . pyvenv-toggle)))
+
+
+;; Vyper
+(use-package vyper-mode)
 
 
 ;; Markdown

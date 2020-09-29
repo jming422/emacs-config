@@ -47,6 +47,7 @@
 	sp-remove-active-pair-overlay
 	sp-slurp-hybrid-sexp
 	upcase-char
+	upcase-region
 	vterm-end-of-line
 	yaml-electric-backspace
 	yaml-electric-dash-and-dot
