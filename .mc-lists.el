@@ -11,6 +11,7 @@
 	delete-horizontal-space
 	downcase-dwim
 	electric-newline-and-maybe-indent
+	end-of-visual-line
 	eval-last-sexp
 	forward-sexp
 	ignore
@@ -62,6 +63,7 @@
 	counsel-grep-or-swiper
 	dap-tooltip-mouse-motion
 	mc-place
+	org-kill-note-or-show-branches
 	prettier-js
 	quit
 	save-some-buffers

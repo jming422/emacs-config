@@ -260,12 +260,12 @@
   :ensure-system-package ("/Applications/Dash.app" . "brew cask install dash")
   :config
   (let ((py-docsets (concat (alist-get 'python-mode dash-at-point-mode-alist) ",boto3,scikit-learn,fnc,pyrsistent,toolz,psql"))
-	(clj-docsets (concat (alist-get 'clojure-mode dash-at-point-mode-alist) ",cljdoc,psql"))
+	(clj-docsets (concat (alist-get 'clojure-mode dash-at-point-mode-alist) ",cljdoc,psql,java11"))
 	(rust-docsets (concat (alist-get 'rust-mode dash-at-point-mode-alist) ",psql")))
     (add-to-list 'dash-at-point-mode-alist `(python-mode . ,py-docsets))
     (add-to-list 'dash-at-point-mode-alist `(clojure-mode . ,clj-docsets))
     (add-to-list 'dash-at-point-mode-alist `(rustic-mode . ,rust-docsets)))
-  (add-to-list 'dash-at-point-mode-alist '(rjsx-mode . "javascript,nodejs,lodash,moment,jest,react,awsjs,psql,css"))
+  (add-to-list 'dash-at-point-mode-alist '(rjsx-mode . "javascript,lodash,nodejs,psql,css,moment,chai,react,awsjs"))
   (global-set-key (kbd "s-c") nil)
   (global-set-key (kbd "s-c s-d") #'dash-at-point))
 
