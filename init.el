@@ -138,6 +138,8 @@
     (doom-themes-set-faces
       'doom-nova
       '(mc/cursor-bar-face :height 1 :background (doom-darken (doom-color 'dark-cyan) 0.3) :foreground (doom-lighten (doom-color 'cyan) 0.2))
+      '(highlight-indentation-face :background (doom-color 'base3))
+      '(highlight-indentation-current-column-face :background  (doom-color 'base5))
       '(mode-line-inactive :background (doom-lighten (doom-color 'modeline-bg-alt) 0.05) :foreground (doom-lighten (doom-color 'modeline-fg-alt) 0.05))
       '(sp-pair-overlay-face :background (doom-darken (doom-color 'dark-cyan) 0.15))
       '(vterm-color-black :background (doom-lighten (doom-color 'base2) 0.6) :foreground (doom-color 'base2))
@@ -260,7 +262,7 @@
   :ensure-system-package ("/Applications/Dash.app" . "brew cask install dash")
   :config
   (let ((py-docsets (concat (alist-get 'python-mode dash-at-point-mode-alist) ",boto3,scikit-learn,fnc,pyrsistent,toolz,psql"))
-	(clj-docsets (concat (alist-get 'clojure-mode dash-at-point-mode-alist) ",cljdoc,psql,java11"))
+	(clj-docsets (concat (alist-get 'clojure-mode dash-at-point-mode-alist) ",cljdoc,cljs,psql,java11"))
 	(rust-docsets (concat (alist-get 'rust-mode dash-at-point-mode-alist) ",psql")))
     (add-to-list 'dash-at-point-mode-alist `(python-mode . ,py-docsets))
     (add-to-list 'dash-at-point-mode-alist `(clojure-mode . ,clj-docsets))
