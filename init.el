@@ -561,12 +561,12 @@
   (lsp-flycheck-live-reporting nil)
   (lsp-eslint-format nil)
   (lsp-eslint-run "onSave")
+  (lsp-headerline-breadcrumb-enable nil)
   :config
   (let ((eslint-server "/Users/jming/.vscode/extensions/dbaeumer.vscode-eslint-2.1.6/server/out/eslintServer.js"))
     (when (file-exists-p eslint-server)
       (setq lsp-eslint-server-command `("node" ,eslint-server "--stdio"))))
-  (nconc lsp-file-watch-ignored '("[/\\\\]build" "[/\\\\]tmp" "[/\\\\]tests[/\\\\]testdata"))
-  (lsp-headerline-breadcrumb-mode -1))
+  (nconc lsp-file-watch-ignored '("[/\\\\]build" "[/\\\\]tmp" "[/\\\\]tests[/\\\\]testdata")))
 
 (use-package lsp-java
   :after lsp-mode)
