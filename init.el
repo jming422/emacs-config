@@ -364,6 +364,10 @@
   :config
   (global-set-key (kbd "H-o H-c") #'org-capture))
 
+(use-package org-tempo
+  :ensure nil
+  :after org)
+
 (use-package olivetti
   :defer t)
 
@@ -561,7 +565,8 @@
   (let ((eslint-server "/Users/jming/.vscode/extensions/dbaeumer.vscode-eslint-2.1.6/server/out/eslintServer.js"))
     (when (file-exists-p eslint-server)
       (setq lsp-eslint-server-command `("node" ,eslint-server "--stdio"))))
-  (nconc lsp-file-watch-ignored '("[/\\\\]build" "[/\\\\]tmp" "[/\\\\]tests[/\\\\]testdata")))
+  (nconc lsp-file-watch-ignored '("[/\\\\]build" "[/\\\\]tmp" "[/\\\\]tests[/\\\\]testdata"))
+  (lsp-headerline-breadcrumb-mode -1))
 
 (use-package lsp-java
   :after lsp-mode)

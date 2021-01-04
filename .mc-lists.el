@@ -3,6 +3,8 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+	beginning-of-visual-line
+	c-electric-slash
 	cljr-slash
 	comint-delchar-or-maybe-eof
 	company-indent-or-complete-common
@@ -11,6 +13,7 @@
 	delete-horizontal-space
 	downcase-dwim
 	electric-newline-and-maybe-indent
+	end-of-buffer
 	end-of-visual-line
 	eval-last-sexp
 	forward-sexp
