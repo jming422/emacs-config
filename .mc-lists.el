@@ -7,6 +7,7 @@
 	c-electric-slash
 	cljr-slash
 	comint-delchar-or-maybe-eof
+	comment-dwim
 	company-indent-or-complete-common
 	counsel-yank-pop
 	dabbrev-completion
