@@ -17,13 +17,16 @@
 	end-of-buffer
 	end-of-visual-line
 	eval-last-sexp
+	fill-paragraph
 	forward-sexp
 	ignore
+	insert-char
 	kill-region
 	kill-sexp
 	magit-copy-buffer-revision
 	magit-previous-line
 	magit-section-backward
+	mark-sexp
 	markdown-outdent-or-delete
 	mc-place-stop
 	org-beginning-of-line
@@ -47,6 +50,7 @@
 	sp-backward-up-sexp
 	sp-copy-sexp
 	sp-down-sexp
+	sp-forward-barf-sexp
 	sp-forward-sexp
 	sp-kill-hybrid-sexp
 	sp-remove-active-pair-overlay

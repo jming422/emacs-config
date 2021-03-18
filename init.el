@@ -121,6 +121,7 @@
 (show-paren-mode)
 (blink-cursor-mode)
 (column-number-mode)
+(global-hl-line-mode)
 (global-eldoc-mode)
 (add-to-list 'default-frame-alist
 	     '(font . "Fira Code-12"))
@@ -263,7 +264,7 @@
   :ensure-system-package ("/Applications/Dash.app" . "brew cask install dash")
   :config
   (let ((py-docsets (concat (alist-get 'python-mode dash-at-point-mode-alist) ",boto3,scikit-learn,fnc,pyrsistent,toolz,psql"))
-	(clj-docsets (concat (alist-get 'clojure-mode dash-at-point-mode-alist) ",cljdoc,cljs,psql,java11"))
+	(clj-docsets (concat (alist-get 'clojure-mode dash-at-point-mode-alist) ",cljdoc,cljs,java11,psql"))
 	(rust-docsets (concat (alist-get 'rust-mode dash-at-point-mode-alist) ",psql")))
     (add-to-list 'dash-at-point-mode-alist `(python-mode . ,py-docsets))
     (add-to-list 'dash-at-point-mode-alist `(clojure-mode . ,clj-docsets))
@@ -567,7 +568,8 @@
   (let ((eslint-server "/Users/jming/.vscode/extensions/dbaeumer.vscode-eslint-2.1.6/server/out/eslintServer.js"))
     (when (file-exists-p eslint-server)
       (setq lsp-eslint-server-command `("node" ,eslint-server "--stdio"))))
-  (nconc lsp-file-watch-ignored '("[/\\\\]build" "[/\\\\]tmp" "[/\\\\]tests[/\\\\]testdata")))
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]build")
+  (add-to-list 'lsp-file-watch-ignored "[/\\\\]tmp"))
 
 (use-package lsp-java
   :after lsp-mode)
@@ -598,16 +600,16 @@
   :after lsp-mode
   :custom (dap-auto-configure-features '(sessions locals breakpoints))
   :hook ((lsp-mode . dap-auto-configure-mode)
-	 ((rjsx-mode typescript-mode) . (lambda () (dap-node-setup) (register-dap-templates-node))))
+	 ((rjsx-mode typescript-mode) . dap-node-setup))
   :config
   (require 'dap-python)
   (require 'dap-node)
   (dap-register-debug-template "Node::Attach" '(:type "node" :request "attach" :name "Node::Attach"))
-  (add-hook 'dap-stopped-hook
-            (lambda (arg) (call-interactively #'dap-hydra))))
+  (add-hook 'dap-stopped-hook (lambda (arg) (call-interactively #'dap-hydra))))
 
 
 ;; SQL
+;; Gonna be honest, this indentation does not work how I want it to. I should get around to updating it.
 (use-package sql-indent
   :ensure nil
   :load-path "git-lisp/sql-indent/"
@@ -696,9 +698,7 @@
 (use-package request-deferred)
 (use-package ein
   :after request-deferred
-  :mode ("\\.ipynb\\'")
-  :bind (:map ein:ipynb-mode-map
-	      ("C-c C-v" . pyvenv-toggle)))
+  :mode ("\\.ipynb\\'" . ein:ipynb-mode))
 
 
 ;; Vyper
@@ -920,10 +920,10 @@
 (defun init-project (file &optional file2 magit-window-shrink)
   "Initialize my windows for the project specified by FILE.
 FILE represents the project root file to open.
-If provided, FILE2 will be opened in the right-side window.
+If provided, FILE2 will be opened in the side window.
 
-Either FILE or FILE2 may instead be the symbol `vterm', in which case a new
-vterm instance will be started in that window.
+Either FILE or FILE2 may instead be the symbol `vterm', in which
+case vterm will be started in that window instead of a file.
 
 If provided, MAGIT-WINDOW-SHRINK can customize the amount by which the magit
 window is shrunk (defaults to 15)."
@@ -952,7 +952,7 @@ window is shrunk (defaults to 15)."
 (defun init-rust ()
   "Initialize my buffers to my Rust learning projects."
   (interactive)
-  (let ((proj-loc "~/Documents/zust"))
+  (let ((proj-loc "~/Documents/personal/rustbucket"))
     (init-project (concat proj-loc "/src/lib.rs") (concat proj-loc "/Cargo.toml"))))
 (global-set-key (kbd "H-i r") #'init-rust)
 
