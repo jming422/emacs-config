@@ -818,6 +818,15 @@
 (use-package add-node-modules-path
   :commands add-node-modules-path)
 
+(defun js-refactor-const-to-function ()
+  "Refactors all `const myFunc = () => {}' forms in the current buffer to `function myFunc() {}' forms."
+  (interactive)
+  (let ((starting-point (point)))
+    (goto-char (point-min))
+    (while (re-search-forward "^\\(export \\)?const \\([a-zA-Z][^ ]*\\) = \\(async \\)?\\(([^)]*)\\) => {" nil t)
+      (replace-match "\\1\\3function \\2\\4 {"))
+    (goto-char starting-point)))
+
 (use-package rjsx-mode
   :custom (js-indent-level 2)
   :after prettier-js
@@ -825,7 +834,8 @@
   :interpreter ("node" "nodejs")
   :bind (:map rjsx-mode-map
          ("M-i" . prettier-js)
-         ("M-." . xref-find-definitions))
+         ("M-." . xref-find-definitions)
+	 ("C-c M-f" . js-refactor-const-to-function))
   :config
   (add-node-modules-path))
 
@@ -833,7 +843,8 @@
   :custom (typescript-indent-level 2)
   :after prettier-js
   :bind (:map typescript-mode-map
-	      ("M-i" . prettier-js))
+	      ("M-i" . prettier-js)
+	      ("C-c M-f" . js-refactor-const-to-function))
   :config
   (add-node-modules-path))
 
