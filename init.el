@@ -18,7 +18,7 @@
  '(display-time-default-load-average nil)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(package-selected-packages
-   '(ivy-clojuredocs vyper-mode typescript-mode rustic request-deferred ein olivetti cljr-ivy clj-refactor dashboard fira-code-mode doom-modeline doom-themes all-the-icons vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode prettier-js add-node-modules-path nodejs-repl go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
+   '(flycheck-clj-kondo ivy-clojuredocs vyper-mode typescript-mode rustic request-deferred ein olivetti cljr-ivy clj-refactor dashboard fira-code-mode doom-modeline doom-themes all-the-icons vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode prettier-js add-node-modules-path nodejs-repl go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
  '(safe-local-variable-values
    '((cider-clojure-cli-global-options . "-A:dev -R:test")
      (cider-clojure-cli-global-options . "-A:dev")
@@ -637,6 +637,10 @@
   :hook (clojure-mode . (lambda () (add-hook 'before-save-hook #'cider-format-buffer t t)))
   :bind (:map cider-mode-map
               ("M-i" . cider-format-buffer)))
+
+(use-package flycheck-clj-kondo
+  :after cider
+  :hook (clojure-mode . (lambda () (require 'flycheck-clj-kondo))))
 
 (use-package clj-refactor
   :hook (clojure-mode . clj-refactor-mode)

@@ -38,6 +38,7 @@
 	org-open-line
 	org-return
 	org-self-insert-command
+	org-shifttab
 	org-yank
 	python-indent-dedent-line
 	python-nav-forward-sexp-safe
