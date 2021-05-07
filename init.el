@@ -18,7 +18,7 @@
  '(display-time-default-load-average nil)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(package-selected-packages
-   '(flycheck-clj-kondo ivy-clojuredocs vyper-mode typescript-mode rustic request-deferred ein olivetti cljr-ivy clj-refactor dashboard fira-code-mode doom-modeline doom-themes all-the-icons vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode prettier-js add-node-modules-path nodejs-repl go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
+   '(flycheck-clj-kondo vyper-mode typescript-mode rustic request-deferred ein olivetti cljr-ivy clj-refactor dashboard fira-code-mode doom-modeline doom-themes all-the-icons vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode prettier-js add-node-modules-path nodejs-repl go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
  '(safe-local-variable-values
    '((cider-clojure-cli-global-options . "-A:dev -R:test")
      (cider-clojure-cli-global-options . "-A:dev")
@@ -264,7 +264,7 @@
   :ensure-system-package ("/Applications/Dash.app" . "brew cask install dash")
   :config
   (let ((py-docsets (concat (alist-get 'python-mode dash-at-point-mode-alist) ",boto3,scikit-learn,fnc,pyrsistent,toolz,psql"))
-	(clj-docsets (concat (alist-get 'clojure-mode dash-at-point-mode-alist) ",cljdoc,cljs,java11,psql"))
+	(clj-docsets (concat (alist-get 'clojure-mode dash-at-point-mode-alist) ",clojuredocs,cljdoc,cljs,java11,psql"))
 	(rust-docsets (concat (alist-get 'rust-mode dash-at-point-mode-alist) ",psql")))
     (add-to-list 'dash-at-point-mode-alist `(python-mode . ,py-docsets))
     (add-to-list 'dash-at-point-mode-alist `(clojure-mode . ,clj-docsets))
@@ -655,11 +655,6 @@
   :after clj-refactor
   :bind (:map clojure-mode-map
 	      ("M-r" . cljr-ivy)))
-
-(use-package ivy-clojuredocs
-  :after (ivy cider)
-  :bind (:map clojure-mode-map
-	      ("s-c s-d" . ivy-clojuredocs-at-point)))
 
 
 ;; Python
