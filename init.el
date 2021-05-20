@@ -818,13 +818,26 @@
   :commands add-node-modules-path)
 
 (defun js-refactor-const-to-function ()
-  "Refactors all `const myFunc = () => {}' forms in the current buffer to `function myFunc() {}' forms."
+  "Refactor all `const myFunc = () => {}' forms in the current buffer to `function myFunc() {}' forms."
   (interactive)
   (let ((starting-point (point)))
     (goto-char (point-min))
     (while (re-search-forward "^\\(export \\)?const \\([a-zA-Z][^ ]*\\) = \\(async \\)?\\(([^)]*)\\) => {" nil t)
       (replace-match "\\1\\3function \\2\\4 {"))
     (goto-char starting-point)))
+
+(defun js-refactor-to-individual-export ()
+  "Refactor the declaration of sexp at point to have the `export' keyword at its beginning, then move point to the next sexp.  If you place your point on the first sexp in a grouped `export { x, y }' form, you can repeat this function to refactor all the exported vars in one fell swoop."
+  (interactive)
+  (let ((xref-results (xref-find-definitions (xref-backend-identifier-at-point (xref-find-backend)))))
+    (when (eq 'buffer (type-of xref-results))
+      (quit-window)
+      (user-error "Multiple definitions available for identifier at point -- don't know which one to refactor")))
+  (move-beginning-of-line nil)
+  (insert "export ")
+  (xref-pop-marker-stack)
+  (sp-forward-sexp)
+  (sp-next-sexp))
 
 (use-package rjsx-mode
   :custom (js-indent-level 2)
@@ -834,7 +847,8 @@
   :bind (:map rjsx-mode-map
          ("M-i" . prettier-js)
          ("M-." . xref-find-definitions)
-	 ("C-c M-f" . js-refactor-const-to-function))
+	 ("C-c M-f" . js-refactor-const-to-function)
+	 ("C-c M-e" . js-refactor-to-individual-export))
   :config
   (add-node-modules-path))
 
