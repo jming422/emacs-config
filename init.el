@@ -297,7 +297,9 @@
 ;; Undo and Kill enhancements
 (use-package undo-tree
   :demand t
-  :custom (undo-tree-auto-save-history t)
+  :custom
+  (undo-tree-auto-save-history t)
+  (undo-tree-history-directory-alist '(("." . "~/.config/emacs/undo-hist")))
   :bind ("s-/" . undo-tree-visualize)
   :config
   (global-undo-tree-mode))
@@ -598,7 +600,9 @@
 
 (use-package dap-mode
   :after lsp-mode
-  :custom (dap-auto-configure-features '(sessions locals breakpoints))
+  :custom
+  (dap-auto-configure-features '(sessions locals breakpoints))
+  (dap-label-output-buffer-category t)
   :hook ((lsp-mode . dap-auto-configure-mode)
 	 ((rjsx-mode typescript-mode) . dap-node-setup))
   :config
@@ -1038,11 +1042,12 @@ with focus residing in the leftmost window."
                     (ediff-get-region-contents ediff-current-difference 'A ediff-control-buffer)
                     (ediff-get-region-contents ediff-current-difference 'B ediff-control-buffer))))
 
-(add-hook 'ediff-keymap-setup-hook (lambda () (define-key ediff-mode-map "d" #'ediff-copy-both-to-C)))
-(add-hook 'ediff-before-setup-hook #'eyebrowse-create-window-config)
-;; (add-hook 'ediff-suspend-hook #'eyebrowse-close-window-config)
-;; (add-hook 'ediff-quit-hook #'eyebrowse-close-window-config)
-;; (add-hook 'ediff-cleanup-hook #'eyebrowse-close-window-config)
+(add-hook 'ediff-load-hook
+	  (lambda ()
+	    (add-hook 'ediff-keymap-setup-hook (lambda () (define-key ediff-mode-map "d" #'ediff-copy-both-to-C)))
+	    (add-hook 'ediff-before-setup-hook #'eyebrowse-create-window-config)
+	    (add-hook 'ediff-quit-hook #'eyebrowse-close-window-config 10)
+	    (add-hook 'ediff-suspend-hook #'eyebrowse-close-window-config 10)))
 
 
 ;; Other custom functions
