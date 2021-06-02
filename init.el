@@ -945,6 +945,12 @@
   (interactive "nBy: ")
   (enlarge-window height))
 
+(fset 'fix-windows
+   (kmacro-lambda-form [?\M-o ?1 ?\H-w ?g ?\H-w ?r ?n ?n ?n ?n ?n ?b ?b ?b ?b ?b return] 0 "%d"))
+
+(defvar init-project-right-p nil
+  "If non-nil, `init-project' will put the largest window on the right side of the frame.  Otherwise, the largest window will be put on the left.")
+
 (defun init-project (file &optional file2 magit-window-shrink)
   "Initialize my windows for the project specified by FILE.
 FILE represents the project root file to open.
@@ -962,6 +968,8 @@ window is shrunk (defaults to 15)."
 	(warn "At least one arg to init-project must be a file path")
       (find-file first-file)
       (split-window-right)
+      (unless init-project-right-p
+	(other-window 1))
       (split-window-below)
       (call-interactively #'magit-status) ;; Moves point to magit status buffer
       (shrink-window (or magit-window-shrink 15))
