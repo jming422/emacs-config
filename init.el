@@ -930,15 +930,15 @@
 
 
 ;; Window stuff
-(defun enlarge-window-15 ()
-  "Enlarge the window by 15 at a time."
+(defun enlarge-window-10 ()
+  "Enlarge the window by 10 at a time."
   (interactive)
-  (enlarge-window 15))
+  (enlarge-window 10))
 
-(defun shrink-window-15 ()
-  "Shrink the window by 15 at a time."
+(defun shrink-window-10 ()
+  "Shrink the window by 10 at a time."
   (interactive)
-  (shrink-window 15))
+  (shrink-window 10))
 
 (defun cool-enlarge-window (height)
   "Prompt for a factor by which to enlarge the window.  HEIGHT represents how many points to enlarge."
@@ -1022,8 +1022,8 @@ with focus residing in the leftmost window."
 (let (quit)
   (defvar my-window-map (make-sparse-keymap))
   (bind-keys :map my-window-map
-	     ("r" . enlarge-window-15)
-	     ("s" . shrink-window-15)
+	     ("r" . enlarge-window-10)
+	     ("s" . shrink-window-10)
 	     ("e" . cool-enlarge-window)
 	     ("g" . balance-windows)
 	     ("n" . shrink-window)
