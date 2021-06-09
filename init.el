@@ -1042,6 +1042,26 @@ with focus residing in the leftmost window."
 
 
 ;; Ediff customizations
+(defvar j/ediff-previous-window-config nil)
+
+(defun j/ediff-eyebrowse-open ()
+  "Do my eyebrowse things before opening ediff's windows."
+  (unless j/ediff-previous-window-config
+    (let* ((window-configs (eyebrowse--get 'window-configs))
+           (slots (mapcar 'car window-configs))
+           (slot (eyebrowse-free-slot slots)))
+      (eyebrowse-switch-to-window-config slot)
+      (eyebrowse-last-window-config)
+      (setq j/ediff-previous-window-config slot))))
+
+(defun j/ediff-eyebrowse-close ()
+  "Do my eyebrowse things before closing ediff's windows."
+  (when j/ediff-previous-window-config
+    (run-hooks 'eyebrowse-pre-window-delete-hook)
+    (eyebrowse--delete-window-config j/ediff-previous-window-config)
+    (run-hooks 'eyebrowse-post-window-delete-hook)
+    (setq j/ediff-previous-window-config nil)))
+
 (defun ediff-copy-both-to-C ()
   "Copy both variants A and B to the ediff buffer C."
   (interactive)
@@ -1053,9 +1073,10 @@ with focus residing in the leftmost window."
 (add-hook 'ediff-load-hook
 	  (lambda ()
 	    (add-hook 'ediff-keymap-setup-hook (lambda () (define-key ediff-mode-map "d" #'ediff-copy-both-to-C)))
-	    (add-hook 'ediff-before-setup-hook #'eyebrowse-create-window-config)
-	    (add-hook 'ediff-quit-hook #'eyebrowse-close-window-config 10)
-	    (add-hook 'ediff-suspend-hook #'eyebrowse-close-window-config 10)))
+	    (add-hook 'ediff-before-setup-hook #'j/ediff-eyebrowse-open)
+	    (add-hook 'ediff-quit-hook #'j/ediff-eyebrowse-close 10)
+	    (add-hook 'ediff-suspend-hook #'j/ediff-eyebrowse-close 10)
+	    (add-hook 'ediff-quit-merge-hook #'j/ediff-eyebrowse-close 10)))
 
 
 ;; Other custom functions
