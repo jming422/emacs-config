@@ -368,6 +368,9 @@
   :config
   (global-set-key (kbd "H-o H-c") #'org-capture))
 
+(customize-set-variable 'initial-major-mode 'org-mode)
+(customize-set-variable 'initial-scratch-message "/This buffer is for text that is not saved, and it's in Org Mode!/")
+
 (use-package org-tempo
   :ensure nil
   :after org)
@@ -710,11 +713,13 @@
 
 ;; Markdown
 (use-package markdown-mode
+  :after prettier-js
   :commands markdown-mode
   :bind (:map markdown-mode-map
          ("M-n" . nil)
          ("M-p" . nil)
-	 ("TAB" . nil)))
+	 ("TAB" . nil)
+	 ("M-i" . prettier-js)))
 
 
 ;; Graphviz
@@ -780,7 +785,7 @@
 (use-package prettier-js
   :demand t ;; Was getting some weird load order errors, and I use it all the time, so just load it always
   :ensure-system-package (prettier . "npm i -g prettier")
-  :hook ((rjsx-mode yaml-mode css-mode json-mode typescript-mode) . prettier-js-mode))
+  :hook ((rjsx-mode yaml-mode css-mode json-mode typescript-mode markdown-mode) . prettier-js-mode))
 
 (use-package css-mode
   :after prettier-js
