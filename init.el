@@ -261,7 +261,7 @@
 
 (use-package dash-at-point
   :if (eq system-type 'darwin)
-  :ensure-system-package ("/Applications/Dash.app" . "brew cask install dash")
+  :ensure-system-package ("/Applications/Dash.app" . "brew install dash --cask")
   :config
   (let ((py-docsets (concat (alist-get 'python-mode dash-at-point-mode-alist) ",boto3,scikit-learn,fnc,pyrsistent,toolz,psql"))
 	(clj-docsets (concat (alist-get 'clojure-mode dash-at-point-mode-alist) ",clojuredocs,cljdoc,cljs,java11,psql"))
