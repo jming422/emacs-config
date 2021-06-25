@@ -495,6 +495,15 @@
   (add-to-list 'projectile-project-root-files-bottom-up "pubspec.yaml"))
 
 
+;; Prettier
+(use-package prettier-js
+  ;; I'd been getting some weird load order errors, and I use Prettier all the time, so now I just load it always near
+  ;; the beginning of my config.
+  :demand t
+  :ensure-system-package (prettier . "npm i -g prettier")
+  :hook ((rjsx-mode yaml-mode css-mode json-mode typescript-mode markdown-mode) . prettier-js-mode))
+
+
 ;; Git, Magit, and Forge
 (use-package magit
   :demand t
@@ -502,7 +511,8 @@
   :bind ("C-x g" . magit-status))
 
 (use-package forge
-  :after magit
+  :after (magit prettier-js)
+  :hook (forge-post-mode . (lambda () (setq-local prettier-js-args '("--parser" "markdown"))))
   :config
   (transient-append-suffix 'forge-dispatch '(0 2 -1)
     '("c x" "pull review request" forge-edit-topic-review-requests)))
@@ -782,11 +792,6 @@
 
 
 ;; Web modes
-(use-package prettier-js
-  :demand t ;; Was getting some weird load order errors, and I use it all the time, so just load it always
-  :ensure-system-package (prettier . "npm i -g prettier")
-  :hook ((rjsx-mode yaml-mode css-mode json-mode typescript-mode markdown-mode) . prettier-js-mode))
-
 (use-package css-mode
   :after prettier-js
   :bind (:map css-mode-map

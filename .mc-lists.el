@@ -74,6 +74,7 @@
 	counsel-grep-or-swiper
 	dap-tooltip-mouse-motion
 	mc-place
+	org-backward-paragraph
 	org-kill-note-or-show-branches
 	prettier-js
 	quit
