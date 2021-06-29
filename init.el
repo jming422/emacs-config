@@ -166,9 +166,7 @@
     (enable-theme 'doom-one-light))
 
   (if (let ((hour (decoded-time-hour (decode-time))))
-	(and
-	 (> 18 hour)
-	 (< 7 hour)))
+	(> 18 hour 7))
       (golight)
     (godark)))
 
@@ -799,7 +797,7 @@
 	 ("M-." . lsp-goto-implementation)))
 
 (use-package web-mode
-  :after prettier-js
+  :after (prettier-js flycheck)
   :mode ("\\.ejs\\'" "\\.erb\\'" "\\.mustache\\'" "\\.tsx\\'")
   :bind (:map web-mode-map
 	      ("M-i" . prettier-js))
