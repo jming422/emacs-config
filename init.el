@@ -367,7 +367,7 @@
   (global-set-key (kbd "H-o H-c") #'org-capture))
 
 (customize-set-variable 'initial-major-mode 'org-mode)
-(customize-set-variable 'initial-scratch-message "/This buffer is for text that is not saved, and it's in Org Mode!/")
+(customize-set-variable 'initial-scratch-message "/This buffer is for text that is not saved, and it's in Org Mode!/\n")
 
 (use-package org-tempo
   :ensure nil
