@@ -37,6 +37,7 @@
 (put 'upcase-region 'disabled nil)
 
 ;; Setup MELPA repo
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
                     (not (gnutls-available-p))))
@@ -505,7 +506,6 @@
 ;; Git, Magit, and Forge
 (use-package magit
   :demand t
-  :custom (magit-diff-use-overlays nil)
   :bind ("C-x g" . magit-status))
 
 (use-package forge
