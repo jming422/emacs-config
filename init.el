@@ -17,8 +17,12 @@
  '(display-time-day-and-date t)
  '(display-time-default-load-average nil)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
+ '(initial-major-mode 'org-mode)
+ '(initial-scratch-message
+   "/This buffer is for text that is not saved, and it's in Org Mode!/
+")
  '(package-selected-packages
-   '(flycheck-clj-kondo vyper-mode typescript-mode rustic request-deferred ein olivetti cljr-ivy clj-refactor dashboard fira-code-mode doom-modeline doom-themes all-the-icons vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode prettier-js add-node-modules-path nodejs-repl go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
+   '(emacs-everywhere flycheck-clj-kondo vyper-mode typescript-mode rustic request-deferred ein olivetti cljr-ivy clj-refactor dashboard fira-code-mode doom-modeline doom-themes all-the-icons vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode prettier-js add-node-modules-path nodejs-repl go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
  '(safe-local-variable-values
    '((cider-clojure-cli-global-options . "-A:dev -R:test")
      (cider-clojure-cli-global-options . "-A:dev")
@@ -286,6 +290,12 @@
   (global-spotify-remote-mode))
 
 
+(use-package emacs-everywhere
+  :custom
+  (emacs-everywhere-markdown-apps '("Discord" "Slack"))
+  (emacs-everywhere-frame-name-format "Emacs Everywhere"))
+
+
 ;; Region/selection
 (use-package expand-region
   :bind ("C-=" . er/expand-region))
@@ -500,7 +510,10 @@
   ;; the beginning of my config.
   :demand t
   :ensure-system-package (prettier . "npm i -g prettier")
-  :hook ((rjsx-mode yaml-mode css-mode json-mode typescript-mode markdown-mode) . prettier-js-mode))
+  :hook (((rjsx-mode yaml-mode css-mode json-mode typescript-mode) . prettier-js-mode)
+	 ;; Sometimes I edit markdown buffers that aren't saved into *.md files, but I still want prettier to know how
+	 ;; to format them
+	 (markdown-mode . (lambda () (prettier-js-mode) (setq-local prettier-js-args '("--parser" "markdown"))))))
 
 
 ;; Git, Magit, and Forge
@@ -510,7 +523,6 @@
 
 (use-package forge
   :after (magit prettier-js)
-  :hook (forge-post-mode . (lambda () (setq-local prettier-js-args '("--parser" "markdown"))))
   :config
   (transient-append-suffix 'forge-dispatch '(0 2 -1)
     '("c x" "pull review request" forge-edit-topic-review-requests)))
@@ -722,7 +734,8 @@
 ;; Markdown
 (use-package markdown-mode
   :after prettier-js
-  :commands markdown-mode
+  :commands (markdown-mode gfm-mode)
+  :mode ("/README\\(?:\\.md\\)?\\'" . gfm-mode)
   :bind (:map markdown-mode-map
          ("M-n" . nil)
          ("M-p" . nil)
