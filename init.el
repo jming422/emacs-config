@@ -22,7 +22,7 @@
    "/This buffer is for text that is not saved, and it's in Org Mode!/
 ")
  '(package-selected-packages
-   '(emacs-everywhere flycheck-clj-kondo vyper-mode typescript-mode rustic request-deferred ein olivetti cljr-ivy clj-refactor dashboard fira-code-mode doom-modeline doom-themes all-the-icons vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode prettier-js add-node-modules-path nodejs-repl go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
+   '(crdt emacs-everywhere flycheck-clj-kondo vyper-mode typescript-mode rustic request-deferred ein olivetti cljr-ivy clj-refactor dashboard fira-code-mode doom-modeline doom-themes all-the-icons vterm all-the-icons-dired all-the-icons-ivy-rich ivy-rich package-lint use-package-ensure-system-package verb forge undo-tree company-emoji lsp-sourcekit swift-helpful swift-mode graphviz-dot-mode kaolin-themes highlight-indentation cider counsel dap-mode json-mode markdown-mode smartparens eyebrowse hercules php-mode clojure-mode git-gutter dash-at-point elpy smart-mode-line yasnippet yasnippet-snippets company-go groovy-mode use-package rjsx-mode web-mode lsp-ui lsp-java lsp-mode flycheck company-quickhelp dart-mode flutter yaml-mode rainbow-mode jade-mode prettier-js add-node-modules-path nodejs-repl go-guru go-mode go-projectile go-scratch docker-compose-mode docker dockerfile-mode exec-path-from-shell rainbow-delimiters expand-region fireplace ample-theme which-key ace-window projectile avy multiple-cursors magit company super-save swiper ivy))
  '(safe-local-variable-values
    '((cider-clojure-cli-global-options . "-A:dev -R:test")
      (cider-clojure-cli-global-options . "-A:dev")
@@ -184,9 +184,9 @@
   (doom-modeline-buffer-file-name-style 'truncate-with-project))
 
 (use-package fira-code-mode
-  ;; Requires installing Fira Code Symbol font first
   :custom (fira-code-mode-disabled-ligatures '("www" "[]" "#{" "#(" "#_" "#_(" "x"))
   :hook (prog-mode vterm-mode))
+;; After install, run M-x fira-code-mode-install-fonts
 
 (use-package rainbow-mode
   :commands rainbow-mode)
@@ -361,6 +361,10 @@
      :keymap 'mc-placement-map
      :transient t)
     (global-set-key (kbd "H-m") #'mc-place)))
+
+
+;; Collaborative editing
+(use-package crdt)
 
 
 ;; Org mode & prose writing
@@ -590,9 +594,6 @@
   (lsp-eslint-run "onSave")
   (lsp-headerline-breadcrumb-enable nil)
   :config
-  (let ((eslint-server "/Users/jming/.vscode/extensions/dbaeumer.vscode-eslint-2.1.6/server/out/eslintServer.js"))
-    (when (file-exists-p eslint-server)
-      (setq lsp-eslint-server-command `("node" ,eslint-server "--stdio"))))
   (add-to-list 'lsp-file-watch-ignored "[/\\\\]build")
   (add-to-list 'lsp-file-watch-ignored "[/\\\\]tmp"))
 
@@ -617,9 +618,7 @@
   (lsp-ui-sideline-show-diagnostics t)
   (lsp-ui-sideline-show-hover nil)
   (lsp-ui-sideline-show-symbol nil)
-  :custom-face (lsp-ui-sideline-global ((t nil)))
-  :config
-  (setq aw-ignored-buffers (delete 'treemacs-mode aw-ignored-buffers)))
+  :custom-face (lsp-ui-sideline-global ((t nil))))
 
 (use-package dap-mode
   :after lsp-mode
@@ -1028,7 +1027,8 @@ with focus residing in the leftmost window."
   :bind (("M-o" . ace-window)
 	 ("s-o" . ace-swap-window))
   :custom (aw-dispatch-always t)
-  :custom-face (aw-leading-char-face ((t . (:height 1.1 :weight bold :foreground "#e361c3")))))
+  :custom-face (aw-leading-char-face ((t . (:height 1.1 :weight bold :foreground "#e361c3"))))
+  :config (setq aw-ignored-buffers (delete 'treemacs-mode aw-ignored-buffers)))
 
 (use-package eyebrowse
   :demand t
@@ -1141,7 +1141,7 @@ If prefixed with one \\[universal-argument] as ARG, uses the current buffer inst
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-hook 'ns-system-appearance-change-functions
             (lambda (appearance)
-	      (pcase appearance
+              (pcase appearance
                 ('light (golight))
                 ('dark (godark))))))
 
