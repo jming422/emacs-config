@@ -593,6 +593,7 @@
   (lsp-eslint-format nil)
   (lsp-eslint-run "onSave")
   (lsp-headerline-breadcrumb-enable nil)
+  (lsp-file-watch-threshold 500)
   :config
   (add-to-list 'lsp-file-watch-ignored "[/\\\\]build")
   (add-to-list 'lsp-file-watch-ignored "[/\\\\]tmp"))

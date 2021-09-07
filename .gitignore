@@ -40,6 +40,7 @@ flycheck_*.el
 
 # projectiles files
 .projectile
+projectile.cache
 
 # directory configuration
 .dir-locals.el
@@ -57,6 +58,7 @@ flycheck_*.el
 /lsp-cache
 /.dap-breakpoints
 /workspace/
+projects
 
 # Local-only files
 /mysecrets.el
