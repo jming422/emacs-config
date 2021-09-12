@@ -947,7 +947,9 @@
   :commands vterm
   :bind (("s-t" . vterm)
 	 (:map vterm-mode-map
-	       ("C-k" . vterm-send-C-k))))
+	       ("C-k" . vterm-send-C-k)))
+  :config
+  (add-to-list 'vterm-eval-cmds '("update-pwd" (lambda (path) (setq default-directory path)))))
 
 
 ;; Window stuff
